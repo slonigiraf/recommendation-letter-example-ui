@@ -21,6 +21,7 @@ import Metadata from './Metadata'
 import NodeInfo from './NodeInfo'
 import TemplateModule from './TemplateModule'
 import Transfer from './Transfer'
+import CreateLetter from './CreateLetter'
 import Upgrade from './Upgrade'
 
 function Main() {
@@ -64,6 +65,9 @@ function Main() {
       </Sticky>
       <Container>
         <Grid stackable columns="equal">
+        <Grid.Row>
+            <CreateLetter />
+          </Grid.Row>
           <Grid.Row stretched>
             <NodeInfo />
             <Metadata />
