@@ -8665,6 +8665,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-sha256@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "js-sha256@npm:0.9.0"
+  checksum: ffad54b3373f81581e245866abfda50a62c483803a28176dd5c28fd2d313e0bdf830e77dac7ff8afd193c53031618920f3d98daf21cbbe80082753ab639c0365
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -11194,7 +11201,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.5.8, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.5.8, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -11261,6 +11268,26 @@ __metadata:
   version: 1.5.1
   resolution: "q@npm:1.5.1"
   checksum: 147baa93c805bc1200ed698bdf9c72e9e42c05f96d007e33a558b5fdfd63e5ea130e99313f28efc1783e90e6bdb4e48b67a36fcc026b7b09202437ae88a1fb12
+  languageName: node
+  linkType: hard
+
+"qr.js@npm:0.0.0":
+  version: 0.0.0
+  resolution: "qr.js@npm:0.0.0"
+  checksum: 5ac6c393967bdeaa660e7fd3a501a25eb538c1f6008a4d30ab2b97bbe520e5c236530090773f1578aa0a523cdaa6923c866615e21143f9e7cd22abd41c789b69
+  languageName: node
+  linkType: hard
+
+"qrcode.react@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "qrcode.react@npm:2.0.0"
+  dependencies:
+    loose-envify: ^1.4.0
+    prop-types: ^15.6.0
+    qr.js: 0.0.0
+  peerDependencies:
+    react: ^16.3.0 || ^17.0.0
+  checksum: fc782e708def7b32ba218e98e5f94ae532d6f5c40ce7a3edfb62b1fab0f13398e41ee18e1a92fd0e9f863b881ba7806cff874490f22221713ac8e32966dc6845
   languageName: node
   linkType: hard
 
@@ -12759,9 +12786,11 @@ __metadata:
     eslint-config-prettier: ^8.4.0
     eslint-config-react-app: ^7.0.0
     gh-pages: ^3.2.3
+    js-sha256: ^0.9.0
     node-polyfill-webpack-plugin: ^1.1.4
     prettier: 2.5.1
     prop-types: ^15.8.1
+    qrcode.react: ^2.0.0
     react: ^17.0.2
     react-app-rewired: ^2.2.1
     react-copy-to-clipboard: ^5.0.4
