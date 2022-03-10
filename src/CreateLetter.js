@@ -137,7 +137,7 @@ export default function Main(props) {
         </Form.Field>
 
         <Form.Field>
-          <QRCode value={letterInfo} />
+          <QRCode value={letterInfo} size="160"/>
         </Form.Field>
 
         <div style={{ overflowWrap: 'break-word' }}>{status}</div>
