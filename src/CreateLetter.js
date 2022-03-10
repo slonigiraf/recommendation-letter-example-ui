@@ -1,17 +1,22 @@
 import React, { useState } from 'react'
-import { Form, Input, TextArea, Grid, Button, Label } from 'semantic-ui-react'
+import { Form, Input, TextArea, Grid, Button } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import QRCode from 'qrcode.react';
 import { sha256 } from 'js-sha256';
+import { web3FromSource } from '@polkadot/extension-dapp'
+
+import { u8aToHex } from '@polkadot/util';
+
 
 export default function Main(props) {
+  const { currentAccount } = useSubstrateState()
   const [status, setStatus] = useState(null)
-  const [formState, setFormState] = useState({ letterInfo: '', text: '', addressTo: '', amount: 0 })
+  const [formState, setFormState] = useState({ letterInfo: '', text: '', workerAddress: '', amount: 0 })
 
   const onChange = (_, data) =>
     setFormState(prev => ({ ...prev, [data.state]: data.value }))
 
-  const { letterInfo, text, addressTo, amount } = formState
+  const { letterInfo, text, workerAddress, amount } = formState
 
   const { keyring } = useSubstrateState()
   const accounts = keyring.getPairs()
@@ -25,21 +30,69 @@ export default function Main(props) {
     })
   })
 
-  const getLetterInfo = () => {
-    // skill_ipfs_hash | insurance_id | teach_address | stud_address | amount | teach_sign_1 | teach_sign_2
+  const getLetterInfo = async () => {
+    // skill_ipfs_hash , insurance_id , teach_address , stud_address , amount , teach_sign_1 , teach_sign_2
+    let result = [];
+    const textHash = sha256(text);
+    result.push(textHash);
+    //
+    const letterId = getLetterId();
+    result.push(letterId);
+    //
+    const [guarantee,] = await getFromAcct();
+    const guaranteeAddress = guarantee.address;
+    result.push(guaranteeAddress);
+    //
+    result.push(workerAddress);
+    //
+    result.push(amount);
+    //
 
-    return sha256(text) + getLetterId() + addressTo + amount;
+    const guaranteeSignOverPrivateData = u8aToHex(guarantee.vrfSign("text"));
+    result.push(guaranteeSignOverPrivateData);
+    //
+
+    /*
+    let mut skill_receipt_data = Vec::new();
+    skill_receipt_data.extend_from_slice(insurance_id_bytes);
+    skill_receipt_data.extend_from_slice(teacher_id_bytes);
+    skill_receipt_data.extend_from_slice(student_id_bytes);
+    skill_receipt_data.extend_from_slice(ask_price_bytes);
+    */
+
+    const guaranteeSignOverReceipt = u8aToHex(guarantee.vrfSign("text"));
+    result.push(guaranteeSignOverReceipt);
+    //
+    console.log(result);
+    return result.join(",");
+  }
+
+
+  const getFromAcct = async () => {
+    const {
+      address,
+      meta: { source, isInjected },
+    } = currentAccount
+
+    if (!isInjected) {
+      return [currentAccount]
+    }
+
+    // currentAccount is injected from polkadot-JS extension, need to return the addr and signer object.
+    // ref: https://polkadot.js.org/docs/extension/cookbook#sign-and-send-a-transaction
+    const injector = await web3FromSource(source)
+    return [address, { signer: injector.signer }]
   }
 
   const getLetterId = () => {
     const usedId = parseInt(window.localStorage.getItem('letterId')) || 0;
-    const letterId = 1+usedId;
+    const letterId = 1 + usedId;
     window.localStorage.setItem('letterId', letterId);
     return letterId;
   }
 
-  const showQR = () => {
-    const data = getLetterInfo();
+  const showQR = async () => {
+    const data = await getLetterInfo();
     setFormState({ ...formState, letterInfo: data });
   }
 
@@ -63,8 +116,8 @@ export default function Main(props) {
             label="About person"
             type="text"
             placeholder="address"
-            value={addressTo}
-            state="addressTo"
+            value={workerAddress}
+            state="workerAddress"
             onChange={onChange}
           />
         </Form.Field>
@@ -80,17 +133,13 @@ export default function Main(props) {
         <Form.Field style={{ textAlign: 'center' }}>
           <Button
             setStatus={setStatus}
-            onClick={()=>{
+            onClick={() => {
               showQR();
             }}
           >Create</Button>
         </Form.Field>
 
         <Form.Field>
-          <Label basic color="teal">
-            {letterInfo}
-          </Label>
-          <br/>
           <QRCode value={letterInfo} />
         </Form.Field>
 
