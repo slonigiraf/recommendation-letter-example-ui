@@ -22,6 +22,7 @@ import NodeInfo from './NodeInfo'
 import TemplateModule from './TemplateModule'
 import Transfer from './Transfer'
 import CreateLetter from './CreateLetter'
+import SaveLetter from './SaveLetter'
 import Upgrade from './Upgrade'
 
 function Main() {
@@ -65,7 +66,10 @@ function Main() {
       </Sticky>
       <Container>
         <Grid stackable columns="equal">
-        <Grid.Row>
+          <Grid.Row>
+            <SaveLetter />
+          </Grid.Row>
+          <Grid.Row>
             <CreateLetter />
           </Grid.Row>
           <Grid.Row stretched>
