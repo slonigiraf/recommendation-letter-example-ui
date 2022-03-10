@@ -5,7 +5,7 @@ import QRCode from 'qrcode.react';
 import { sha256 } from 'js-sha256';
 import { web3FromSource } from '@polkadot/extension-dapp'
 
-import { u8aToHex } from '@polkadot/util';
+import { stringToU8a, u8aToHex } from '@polkadot/util';
 
 
 export default function Main(props) {
@@ -47,24 +47,21 @@ export default function Main(props) {
     //
     result.push(amount);
     //
-
-    const guaranteeSignOverPrivateData = u8aToHex(guarantee.vrfSign("text"));
+    const privateData = arrayToBinaryString([textHash, letterId, guaranteeAddress, workerAddress, amount]);
+    const guaranteeSignOverPrivateData = u8aToHex(guarantee.vrfSign(privateData));
     result.push(guaranteeSignOverPrivateData);
     //
-
-    /*
-    let mut skill_receipt_data = Vec::new();
-    skill_receipt_data.extend_from_slice(insurance_id_bytes);
-    skill_receipt_data.extend_from_slice(teacher_id_bytes);
-    skill_receipt_data.extend_from_slice(student_id_bytes);
-    skill_receipt_data.extend_from_slice(ask_price_bytes);
-    */
-
-    const guaranteeSignOverReceipt = u8aToHex(guarantee.vrfSign("text"));
+    const reciept = arrayToBinaryString([letterId, guaranteeAddress, workerAddress, amount]);
+    const guaranteeSignOverReceipt = u8aToHex(guarantee.vrfSign(reciept));
     result.push(guaranteeSignOverReceipt);
     //
     console.log(result);
     return result.join(",");
+  }
+
+  const arrayToBinaryString = data => {
+    const arrays = data.map(v => stringToU8a(v));
+    return new Uint8Array(arrays.reduce((acc, curr) => [...acc, ...curr], []));
   }
 
 
