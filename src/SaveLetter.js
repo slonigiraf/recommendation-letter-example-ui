@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Grid, Button } from 'semantic-ui-react'
 import { QrReader } from 'react-qr-reader';
 import ReactModal from 'react-modal';
+import LettersList from './LettersList'
 
 export default function Main(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -24,7 +25,7 @@ export default function Main(props) {
         <h1>Save recommendation letter</h1>
         {modalIsOpen}
         <Button onClick={() => setModalIsOpen(true)}>Scan letter</Button>
-        <ReactModal isOpen={modalIsOpen}>
+        <ReactModal isOpen={modalIsOpen} style={{ width: "100px" }}>
           <QrReader
             onResult={(result, error) => {
               console.log("Result: " + result)
@@ -35,13 +36,13 @@ export default function Main(props) {
                 console.info(error);
               }
             }}
-            style={{ width: '100%' }}
+        
           />
          <Button onClick={() => setModalIsOpen(false)}>Cancel</Button>
         </ReactModal>
       </Grid.Row>
       <Grid.Row>
-        <b>Recommendation letters:</b><br /> {Array.from(map.keys()).join("\n")}
+        <LettersList letters={Array.from(map.values())}/>
       </Grid.Row>
     </Grid.Column>
   )
