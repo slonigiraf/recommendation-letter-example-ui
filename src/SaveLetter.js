@@ -23,7 +23,6 @@ export default function Main(props) {
     <Grid.Column width={8}>
       <Grid.Row>
         <h1>Save recommendation letter</h1>
-        {modalIsOpen}
         <Button onClick={() => setModalIsOpen(true)}>Scan letter</Button>
         <ReactModal isOpen={modalIsOpen} style={{ width: "100px" }}>
           <QrReader

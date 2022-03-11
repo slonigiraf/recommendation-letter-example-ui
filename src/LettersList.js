@@ -1,5 +1,6 @@
 import { Grid } from 'semantic-ui-react'
 import LetterInfo from './LetterInfo'
+import React from 'react'
 
 export default function Main(props) {
   return (
