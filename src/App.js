@@ -22,7 +22,8 @@ import NodeInfo from './NodeInfo'
 import TemplateModule from './TemplateModule'
 import Transfer from './Transfer'
 import CreateLetter from './CreateLetter'
-import SaveLetter from './SaveLetter'
+import WorkerSaveLetter from './WorkerSaveLetter'
+import EmployerSaveLetter from './EmployerSaveLetter'
 import Upgrade from './Upgrade'
 
 function Main() {
@@ -67,7 +68,10 @@ function Main() {
       <Container>
         <Grid stackable columns="equal">
           <Grid.Row>
-            <SaveLetter />
+            <EmployerSaveLetter />
+          </Grid.Row>
+          <Grid.Row>
+            <WorkerSaveLetter />
           </Grid.Row>
           <Grid.Row>
             <CreateLetter />

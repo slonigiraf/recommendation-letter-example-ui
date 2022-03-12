@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 import { Grid, Button } from 'semantic-ui-react'
 import { QrReader } from 'react-qr-reader';
 import ReactModal from 'react-modal';
-import LettersList from './LettersList'
+import InsurancesList from './InsurancesList'
 
 export default function Main(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [map, setMap] = useState(localStorage.letters ? new Map(JSON.parse(localStorage.letters)) : new Map());
+  const [map, setMap] = useState(localStorage.insurances ? new Map(JSON.parse(localStorage.insurances)) : new Map());
 
   const storeLetter = data => {
     let dataArray = data.split(",");
-    if (dataArray.length === 7) {
-      const updatedMap = localStorage.letters ? new Map(JSON.parse(localStorage.letters)) : new Map();
+    if (dataArray.length === 8) {
+      const updatedMap = localStorage.insurances ? new Map(JSON.parse(localStorage.insurances)) : new Map();
       updatedMap.set(dataArray[0], data);
-      localStorage.letters = JSON.stringify(Array.from(updatedMap.entries()));
+      localStorage.insurances = JSON.stringify(Array.from(updatedMap.entries()));
       setMap(updatedMap);
       setModalIsOpen(false);
     }
@@ -22,7 +22,7 @@ export default function Main(props) {
   return (
     <Grid.Column width={8}>
       <Grid.Row>
-        <h1>Save recommendation letter</h1>
+        <h1>Worker's recommendation letters</h1>
         <Button onClick={() => setModalIsOpen(true)}>Scan letter</Button>
         <ReactModal isOpen={modalIsOpen} style={{ width: "100px" }}>
           <QrReader
@@ -35,13 +35,12 @@ export default function Main(props) {
                 console.info(error);
               }
             }}
-        
           />
          <Button onClick={() => setModalIsOpen(false)}>Cancel</Button>
         </ReactModal>
       </Grid.Row>
       <Grid.Row>
-        <LettersList letters={Array.from(map.values())}/>
+        <InsurancesList insurances={Array.from(map.values())}/>
       </Grid.Row>
     </Grid.Column>
   )

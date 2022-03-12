@@ -1,22 +1,26 @@
 import React, { useState } from 'react'
-import { Form, Input, TextArea, Grid, Button } from 'semantic-ui-react'
+import { Form, Input, Grid, Button } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import QRCode from 'qrcode.react';
-import { sha256 } from 'js-sha256';
 import { web3FromSource } from '@polkadot/extension-dapp'
 
 import { stringToU8a, u8aToHex } from '@polkadot/util';
 
 
 export default function Main(props) {
+  const [textHash, letterId, guaranteeAddress,
+    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt] = props.insurance.split(",");
+  console.log(textHash, letterId, guaranteeAddress,
+    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt);
+
   const { currentAccount } = useSubstrateState()
   const [status, setStatus] = useState(null)
-  const [formState, setFormState] = useState({ letterInfo: '', text: '', workerAddress: '', amount: 0 })
+  const [formState, setFormState] = useState({ letterInfo: '', employerAddress: '' })
 
   const onChange = (_, data) =>
     setFormState(prev => ({ ...prev, [data.state]: data.value }))
 
-  const { letterInfo, text, workerAddress, amount } = formState
+  const { letterInfo, employerAddress } = formState
 
   const { keyring } = useSubstrateState()
   const accounts = keyring.getPairs()
@@ -31,31 +35,17 @@ export default function Main(props) {
   })
 
   const getLetterInfo = async () => {
-    // skill_ipfs_hash , insurance_id , teach_address , stud_address , amount , teach_sign_1 , teach_sign_2
-    let result = [];
-    const textHash = sha256(text);
-    result.push(textHash);
+    //insurance_id | teach_address | stud_address | amount | teach_sign_2 | employer_address | stud_sign3
+
+    const [worker,] = await getFromAcct();
+
+    let letterInsurance = [letterId, guaranteeAddress,
+      workerAddress, amount, guaranteeSignOverReceipt, employerAddress];
+    const insurance = arrayToBinaryString(letterInsurance);
+    const workerSignOverInsurance = u8aToHex(worker.vrfSign(insurance));
     //
-    const letterId = getLetterId();
-    result.push(letterId);
-    //
-    const [guarantee,] = await getFromAcct();
-    const guaranteeAddress = guarantee.address;
-    result.push(guaranteeAddress);
-    //
-    result.push(workerAddress);
-    //
-    result.push(amount);
-    //
-    const privateData = arrayToBinaryString([textHash, letterId, guaranteeAddress, workerAddress, amount]);
-    const guaranteeSignOverPrivateData = u8aToHex(guarantee.vrfSign(privateData));
-    result.push(guaranteeSignOverPrivateData);
-    //
-    const reciept = arrayToBinaryString([letterId, guaranteeAddress, workerAddress, amount]);
-    const guaranteeSignOverReceipt = u8aToHex(guarantee.vrfSign(reciept));
-    result.push(guaranteeSignOverReceipt);
-    //
-    console.log(result);
+    const result = [textHash, letterId, guaranteeAddress,
+      workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance]
     return result.join(",");
   }
 
@@ -81,13 +71,6 @@ export default function Main(props) {
     return [address, { signer: injector.signer }]
   }
 
-  const getLetterId = () => {
-    const usedId = parseInt(window.localStorage.getItem('letterId')) || 0;
-    const letterId = 1 + usedId;
-    window.localStorage.setItem('letterId', letterId);
-    return letterId;
-  }
-
   const showQR = async () => {
     const data = await getLetterInfo();
     setStatus(true);
@@ -100,35 +83,17 @@ export default function Main(props) {
 
   return (
     <Grid.Column width={8}>
-      <h1>Create recommendation letter</h1>
+      <h1>Penalize guarantee</h1>
       <Form>
-        <Form.Field>
-          <TextArea
-            fluid
-            type="text"
-            placeholder="Recommendation letter text"
-            value={text}
-            state="text"
-            onChange={onChange}
-          />
-        </Form.Field>
+        
         <Form.Field>
           <Input
             fluid
-            label="About person"
+            label="To employer"
             type="text"
             placeholder="address"
-            value={workerAddress}
-            state="workerAddress"
-            onChange={onChange}
-          />
-        </Form.Field>
-        <Form.Field>
-          <Input
-            fluid
-            label="Stake reputation"
-            type="number"
-            state="amount"
+            value={employerAddress}
+            state="employerAddress"
             onChange={onChange}
           />
         </Form.Field>
@@ -138,7 +103,7 @@ export default function Main(props) {
             onClick={() => {
               showQR();
             }}
-          >Create</Button>
+          >Penalize</Button>
         </Form.Field>
 
         {qrPart}

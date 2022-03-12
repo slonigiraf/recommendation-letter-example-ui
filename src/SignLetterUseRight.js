@@ -39,13 +39,13 @@ export default function Main(props) {
 
     const [worker,] = await getFromAcct();
 
-    let result = [letterId, guaranteeAddress,
+    let letterInsurance = [letterId, guaranteeAddress,
       workerAddress, amount, guaranteeSignOverReceipt, employerAddress];
-    const insurance = arrayToBinaryString(result);
-    const guaranteeSignOverInsurance = u8aToHex(worker.vrfSign(insurance));
-    result.push(guaranteeSignOverInsurance);
+    const insurance = arrayToBinaryString(letterInsurance);
+    const workerSignOverInsurance = u8aToHex(worker.vrfSign(insurance));
     //
-    console.log(result);
+    const result = [textHash, letterId, guaranteeAddress,
+      workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance]
     return result.join(",");
   }
 
@@ -73,8 +73,13 @@ export default function Main(props) {
 
   const showQR = async () => {
     const data = await getLetterInfo();
+    setStatus(true);
     setFormState({ ...formState, letterInfo: data });
   }
+
+  const qrPart =  status? <Form.Field>
+  <QRCode value={letterInfo} size="160"/>
+  </Form.Field> : "";
 
   return (
     <Grid.Column width={8}>
@@ -101,9 +106,7 @@ export default function Main(props) {
           >Sign</Button>
         </Form.Field>
 
-        <Form.Field>
-          <QRCode value={letterInfo} size="160"/>
-        </Form.Field>
+        {qrPart}
 
         <div style={{ overflowWrap: 'break-word' }}>{status}</div>
       </Form>
