@@ -1,26 +1,19 @@
 import React, { useState } from 'react'
-import { Form, Input, Grid, Button } from 'semantic-ui-react'
+import { Form, Grid, Button } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
-import QRCode from 'qrcode.react';
 import { web3FromSource } from '@polkadot/extension-dapp'
-
-import { stringToU8a, u8aToHex } from '@polkadot/util';
+import { TxButton } from './substrate-lib/components'
 
 
 export default function Main(props) {
   const [textHash, letterId, guaranteeAddress,
-    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt] = props.insurance.split(",");
+    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance] = props.insurance.split(",");
   console.log(textHash, letterId, guaranteeAddress,
-    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt);
+    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance);
 
   const { currentAccount } = useSubstrateState()
   const [status, setStatus] = useState(null)
-  const [formState, setFormState] = useState({ letterInfo: '', employerAddress: '' })
-
-  const onChange = (_, data) =>
-    setFormState(prev => ({ ...prev, [data.state]: data.value }))
-
-  const { letterInfo, employerAddress } = formState
+  const [employerAddress, setEmployerAddress] = useState('')
 
   const { keyring } = useSubstrateState()
   const accounts = keyring.getPairs()
@@ -34,26 +27,10 @@ export default function Main(props) {
     })
   })
 
-  const getLetterInfo = async () => {
-    //insurance_id | teach_address | stud_address | amount | teach_sign_2 | employer_address | stud_sign3
-
-    const [worker,] = await getFromAcct();
-
-    let letterInsurance = [letterId, guaranteeAddress,
-      workerAddress, amount, guaranteeSignOverReceipt, employerAddress];
-    const insurance = arrayToBinaryString(letterInsurance);
-    const workerSignOverInsurance = u8aToHex(worker.vrfSign(insurance));
-    //
-    const result = [textHash, letterId, guaranteeAddress,
-      workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance]
-    return result.join(",");
+  const enablePenalization = async () => {
+    const [employer,] = await getFromAcct()
+    setEmployerAddress(employer.address)
   }
-
-  const arrayToBinaryString = data => {
-    const arrays = data.map(v => stringToU8a(v));
-    return new Uint8Array(arrays.reduce((acc, curr) => [...acc, ...curr], []));
-  }
-
 
   const getFromAcct = async () => {
     const {
@@ -71,43 +48,35 @@ export default function Main(props) {
     return [address, { signer: injector.signer }]
   }
 
-  const showQR = async () => {
-    const data = await getLetterInfo();
-    setStatus(true);
-    setFormState({ ...formState, letterInfo: data });
-  }
-
-  const qrPart =  status? <Form.Field>
-  <QRCode value={letterInfo} size="160"/>
-  </Form.Field> : "";
-
   return (
     <Grid.Column width={8}>
       <h1>Penalize guarantee</h1>
       <Form>
-        
-        <Form.Field>
-          <Input
-            fluid
-            label="To employer"
-            type="text"
-            placeholder="address"
-            value={employerAddress}
-            state="employerAddress"
-            onChange={onChange}
-          />
-        </Form.Field>
+      
         <Form.Field style={{ textAlign: 'center' }}>
+          
+        <TxButton
+            label="Not working"
+            type="SIGNED-TX"
+            setStatus={setStatus}
+            txOnClickHandler={() => {
+              enablePenalization()
+            }}
+            attrs={{
+              palletRpc: 'insurances',
+              callable: 'reimburse',
+              inputParams: [letterId, guaranteeAddress, workerAddress, employerAddress, amount , guaranteeSignOverReceipt, workerSignOverInsurance ],
+              paramFields: [true, true, true, true, true, true, true],
+            }}
+          />
+
           <Button
             setStatus={setStatus}
             onClick={() => {
-              showQR();
+              enablePenalization();
             }}
           >Penalize</Button>
         </Form.Field>
-
-        {qrPart}
-
         <div style={{ overflowWrap: 'break-word' }}>{status}</div>
       </Form>
     </Grid.Column>
