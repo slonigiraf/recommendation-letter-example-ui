@@ -17,13 +17,13 @@ const keyring = new Keyring({ type: 'sr25519', ss58Format: 42 })
 //     }
 // );
 
-// const teacher = keyring.addFromUri('teacher')
-// const student = keyring.addFromUri('student')
-// const employer = keyring.addFromUri('employer')
+const teacher = keyring.addFromUri('teacher')
+const student = keyring.addFromUri('student')
+const employer = keyring.addFromUri('employer')
 
-const teacher = keyring.addFromUri('//Alice')
-const student = keyring.addFromUri('//Bob')
-const employer = keyring.addFromUri('//Charlie')
+// const teacher = keyring.addFromUri('//Alice')
+// const student = keyring.addFromUri('//Bob')
+// const employer = keyring.addFromUri('//Charlie')
 
 const malicious = keyring.addFromUri('malicious')
 
@@ -31,7 +31,7 @@ const malicious = keyring.addFromUri('malicious')
 // guaranteeSignOverReceipt, workerSignOverInsurance ]
 
 const letterId = 1
-const amount = 1000000000000000
+const amount = 10
 
 const letterIdU8 = numberToU8ArrayOfLength(letterId, 4)
 console.log(`letter id: ${letterId}`)
