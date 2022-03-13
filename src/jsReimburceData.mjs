@@ -5,18 +5,18 @@ import { u8aToHex } from '@polkadot/util'
 import { sign, getPublicDataToSignByGuarantee, getDataToSignByWorker } from './helpers.mjs'
 
 async function main() {
-  const insurance_id = 3;
-  const amount = 1000000000000000;
+  const insurance_id = 3
+  const amount = 1000000000000000
   //
-  const api = await ApiPromise.create();
-  const keyring = new Keyring({ type: 'sr25519' });
-  const guarantee = keyring.addFromUri('//Alice');
-  const worker = keyring.addFromUri('//Bob');
-  const employer = keyring.addFromUri('//Bob//stash');
+  const api = await ApiPromise.create()
+  const keyring = new Keyring({ type: 'sr25519' })
+  const guarantee = keyring.addFromUri('//Alice')
+  const worker = keyring.addFromUri('//Bob')
+  const employer = keyring.addFromUri('//Bob//stash')
 
   const guaranteeU8 = guarantee.publicKey
   const guaranteeHex = u8aToHex(guarantee.publicKey)
-  console.log("guaranteeHex: ", guaranteeHex);
+  console.log("guaranteeHex: ", guaranteeHex)
 
   const workerU8 = worker.publicKey
   const workerHex = u8aToHex(worker.publicKey)
@@ -38,11 +38,11 @@ async function main() {
     employerHex,
     amount,
     guaranteeSignatureHex,
-    workerSignatureHex);
+    workerSignatureHex)
 
   // Sign and send the transaction using our account
-  const hash = await reimburse.signAndSend(employer);
-  console.log('Transfer sent with hash', hash.toHex());
+  const hash = await reimburse.signAndSend(employer)
+  console.log('Transfer sent with hash', hash.toHex())
 }
 
-main().catch(console.error).finally(() => process.exit());
+main().catch(console.error).finally(() => process.exit())
