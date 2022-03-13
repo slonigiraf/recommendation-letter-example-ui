@@ -4,19 +4,18 @@ import { useSubstrateState } from './substrate-lib'
 import QRCode from 'qrcode.react';
 import { sha256 } from 'js-sha256';
 import { web3FromSource } from '@polkadot/extension-dapp'
-
-import { stringToU8a, u8aToHex } from '@polkadot/util';
-
+import { sign, getPublicDataToSignByGuarantee , getPrivateDataToSignByGuarantee} from './helpers.mjs';
+import { hexToU8a, u8aToHex } from '@polkadot/util';
 
 export default function Main(props) {
   const { currentAccount } = useSubstrateState()
   const [status, setStatus] = useState(null)
-  const [formState, setFormState] = useState({ letterInfo: '', text: '', workerAddress: '', amount: 0 })
+  const [formState, setFormState] = useState({ letterInfo: '', text: '', workerPublicKeyHex: '', amount: 0 })
 
   const onChange = (_, data) =>
     setFormState(prev => ({ ...prev, [data.state]: data.value }))
 
-  const { letterInfo, text, workerAddress, amount } = formState
+  const { letterInfo, text, workerPublicKeyHex: workerPublicKeyHex, amount } = formState
 
   const { keyring } = useSubstrateState()
   const accounts = keyring.getPairs()
@@ -39,31 +38,36 @@ export default function Main(props) {
     const letterId = getLetterId();
     result.push(letterId);
     //
-    const [guarantee,] = await getFromAcct();
-    const guaranteeAddress = guarantee.address;
-    result.push(guaranteeAddress);
+    const [guarantee,] = await getFromAcct()
+    const guaranteeU8 = guarantee.publicKey
+    const guaranteePublicKeyHex = u8aToHex(guaranteeU8)
+    result.push(guaranteePublicKeyHex)
     //
-    result.push(workerAddress);
+    const workerPublicKeyU8 = hexToU8a(workerPublicKeyHex)
+    result.push(workerPublicKeyHex)
     //
-    result.push(amount);
+    const amountValue = parseInt(amount, 10);
+    result.push(amountValue);
     //
-    const privateData = arrayToBinaryString([textHash, letterId, guaranteeAddress, workerAddress, amount]);
-    const guaranteeSignOverPrivateData = u8aToHex(guarantee.vrfSign(privateData));
+    const privateData = getPrivateDataToSignByGuarantee(textHash, letterId, guaranteeU8, workerPublicKeyU8, amountValue)
+    const guaranteeSignOverPrivateData = u8aToHex( sign(guarantee, privateData) )
     result.push(guaranteeSignOverPrivateData);
     //
-    const reciept = arrayToBinaryString([letterId, guaranteeAddress, workerAddress, amount]);
-    const guaranteeSignOverReceipt = u8aToHex(guarantee.vrfSign(reciept));
+    
+    const reciept = getPublicDataToSignByGuarantee(letterId, guaranteeU8, workerPublicKeyU8, amountValue)
+    const guaranteeSignOverReceipt = u8aToHex( sign(guarantee, reciept) )
+    console.log("letterId", letterId)
+    console.log("guaranteeU8", guaranteeU8)
+    console.log("workerPublicKeyU8", workerPublicKeyU8)
+    console.log("amount",amount)
+    console.log("reciept",reciept)
+    console.log("guaranteeSignOverReceipt",guaranteeSignOverReceipt)
+
     result.push(guaranteeSignOverReceipt);
     //
     console.log(result);
     return result.join(",");
   }
-
-  const arrayToBinaryString = data => {
-    const arrays = data.map(v => stringToU8a(v));
-    return new Uint8Array(arrays.reduce((acc, curr) => [...acc, ...curr], []));
-  }
-
 
   const getFromAcct = async () => {
     const {
@@ -117,9 +121,9 @@ export default function Main(props) {
             fluid
             label="About person"
             type="text"
-            placeholder="address"
-            value={workerAddress}
-            state="workerAddress"
+            placeholder="public key hex"
+            value={workerPublicKeyHex}
+            state="workerPublicKeyHex"
             onChange={onChange}
           />
         </Form.Field>

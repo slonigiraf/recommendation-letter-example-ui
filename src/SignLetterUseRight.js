@@ -3,24 +3,26 @@ import { Form, Input, Grid, Button } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import QRCode from 'qrcode.react';
 import { web3FromSource } from '@polkadot/extension-dapp'
-
-import { stringToU8a, u8aToHex } from '@polkadot/util';
+import { sign, getDataToSignByWorker } from './helpers.mjs';
+import { hexToU8a, u8aToHex } from '@polkadot/util';
 
 
 export default function Main(props) {
   const [textHash, letterId, guaranteeAddress,
-    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt] = props.letter.split(",");
-  console.log(textHash, letterId, guaranteeAddress,
-    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt);
+    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt] = props.letter.split(",")
+  const letterIdValue = parseInt(letterId, 10)
+  const amountValue = parseInt(amount, 10)
+  console.log(textHash, letterIdValue, guaranteeAddress,
+    workerAddress, amountValue, guaranteeSignOverPrivateData, guaranteeSignOverReceipt);
 
   const { currentAccount } = useSubstrateState()
   const [status, setStatus] = useState(null)
-  const [formState, setFormState] = useState({ letterInfo: '', employerAddress: '' })
+  const [formState, setFormState] = useState({ letterInfo: '', employerPublicKeyHex: '' })
 
   const onChange = (_, data) =>
     setFormState(prev => ({ ...prev, [data.state]: data.value }))
 
-  const { letterInfo, employerAddress } = formState
+  const { letterInfo, employerPublicKeyHex: employerPublicKeyHex } = formState
 
   const { keyring } = useSubstrateState()
   const accounts = keyring.getPairs()
@@ -39,21 +41,15 @@ export default function Main(props) {
 
     const [worker,] = await getFromAcct();
 
-    let letterInsurance = [letterId, guaranteeAddress,
-      workerAddress, amount, guaranteeSignOverReceipt, employerAddress];
-    const insurance = arrayToBinaryString(letterInsurance);
-    const workerSignOverInsurance = u8aToHex(worker.vrfSign(insurance));
+    let letterInsurance = getDataToSignByWorker(letterIdValue, hexToU8a(guaranteeAddress),
+      hexToU8a(workerAddress), amountValue, hexToU8a(guaranteeSignOverReceipt), hexToU8a(employerPublicKeyHex))
+
+    const workerSignOverInsurance = u8aToHex(sign(worker, letterInsurance));
     //
-    const result = [textHash, letterId, guaranteeAddress,
-      workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance]
+    const result = [textHash, letterIdValue, guaranteeAddress,
+      workerAddress, amountValue, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance]
     return result.join(",");
   }
-
-  const arrayToBinaryString = data => {
-    const arrays = data.map(v => stringToU8a(v));
-    return new Uint8Array(arrays.reduce((acc, curr) => [...acc, ...curr], []));
-  }
-
 
   const getFromAcct = async () => {
     const {
@@ -77,23 +73,23 @@ export default function Main(props) {
     setFormState({ ...formState, letterInfo: data });
   }
 
-  const qrPart =  status? <Form.Field>
-  <QRCode value={letterInfo} size="160"/>
+  const qrPart = status ? <Form.Field>
+    <QRCode value={letterInfo} size="160" />
   </Form.Field> : "";
 
   return (
     <Grid.Column width={8}>
       <h1>Sign recommendation letter</h1>
       <Form>
-        
+
         <Form.Field>
           <Input
             fluid
             label="To employer"
             type="text"
-            placeholder="address"
-            value={employerAddress}
-            state="employerAddress"
+            placeholder="public key hex"
+            value={employerPublicKeyHex}
+            state="employerPublicKeyHex"
             onChange={onChange}
           />
         </Form.Field>

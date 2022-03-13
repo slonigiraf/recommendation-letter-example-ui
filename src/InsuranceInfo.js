@@ -6,10 +6,8 @@ import UseInsurance from './UseInsurance'
 export default function Main(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const [textHash, letterId, guaranteeAddress,
-    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance] = props.insurance.split(",");
-  console.log(textHash, letterId, guaranteeAddress,
-    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance);
+  const [textHash, , , , , , , ] = props.insurance.split(",");
+ 
   return (
     <Grid.Row>
       <Button

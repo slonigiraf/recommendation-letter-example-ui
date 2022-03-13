@@ -3,7 +3,8 @@ import { Form, Grid, Button } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import { web3FromSource } from '@polkadot/extension-dapp'
 import { TxButton } from './substrate-lib/components'
-
+import { ApiPromise } from '@polkadot/api'
+import { u8aToHex } from '@polkadot/util'
 
 export default function Main(props) {
   const [textHash, letterId, guaranteeAddress,
@@ -14,7 +15,6 @@ export default function Main(props) {
   const { currentAccount } = useSubstrateState()
   const [status, setStatus] = useState(null)
   const [employerAddress, setEmployerAddress] = useState('')
-
   const { keyring } = useSubstrateState()
   const accounts = keyring.getPairs()
 
@@ -30,6 +30,37 @@ export default function Main(props) {
   const enablePenalization = async () => {
     const [employer,] = await getFromAcct()
     setEmployerAddress(employer.address)
+    //----
+    // Create a transaction
+    const api = await ApiPromise.create()
+    //[letterId, guaranteeAddress, workerAddress, employerAddress, amount, guaranteeSignOverReceipt, workerSignOverInsurance]
+    const insurance_id = letterId
+    const guaranteeHex = guaranteeAddress
+    const workerHex = workerAddress
+    const employerHex = u8aToHex(employer.publicKey)
+    const guaranteeSignatureHex = guaranteeSignOverReceipt
+    const workerSignatureHex = workerSignOverInsurance
+
+    console.log("------------")
+    console.log("letterId", letterId)
+    console.log("guaranteeHex", guaranteeHex)
+    console.log("workerHex", workerHex)
+    console.log("employerHex", employerHex)
+    console.log("amount", amount)
+    console.log("guaranteeSignatureHex", guaranteeSignatureHex)
+    console.log("workerSignatureHex", workerSignatureHex)
+    console.log("------------")
+    
+    const reimburse = api.tx.insurances.reimburse(insurance_id,
+      guaranteeHex,
+      workerHex,
+      employerHex,
+      amount,
+      guaranteeSignatureHex,
+      workerSignatureHex)
+    // Sign and send the transaction using our account
+    const hash = await reimburse.signAndSend(employer)
+    console.log('Transfer sent with hash', hash.toHex())
   }
 
   const getFromAcct = async () => {
@@ -52,10 +83,10 @@ export default function Main(props) {
     <Grid.Column width={8}>
       <h1>Penalize guarantee</h1>
       <Form>
-      
+
         <Form.Field style={{ textAlign: 'center' }}>
-          
-        <TxButton
+
+          <TxButton
             label="Not working"
             type="SIGNED-TX"
             setStatus={setStatus}
@@ -65,7 +96,7 @@ export default function Main(props) {
             attrs={{
               palletRpc: 'insurances',
               callable: 'reimburse',
-              inputParams: [letterId, guaranteeAddress, workerAddress, employerAddress, amount , guaranteeSignOverReceipt, workerSignOverInsurance ],
+              inputParams: [letterId, guaranteeAddress, workerAddress, employerAddress, amount, guaranteeSignOverReceipt, workerSignOverInsurance],
               paramFields: [true, true, true, true, true, true, true],
             }}
           />

@@ -1,3 +1,4 @@
+import { hexToU8a } from '@polkadot/util';
 import { numberToU8ArrayOfLength, getPublicDataToSignByGuarantee, getDataToSignByWorker } from '../helpers.mjs';
 
 

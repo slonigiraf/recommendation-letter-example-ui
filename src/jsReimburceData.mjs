@@ -5,7 +5,7 @@ import { u8aToHex } from '@polkadot/util'
 import { sign, getPublicDataToSignByGuarantee, getDataToSignByWorker } from './helpers.mjs'
 
 async function main() {
-  const insurance_id = 3
+  const insurance_id = 1
   const amount = 1000000000000000
   //
   const api = await ApiPromise.create()
@@ -20,18 +20,23 @@ async function main() {
 
   const workerU8 = worker.publicKey
   const workerHex = u8aToHex(worker.publicKey)
+  console.log("workerHex: ", workerHex)
 
   const employerU8 = employer.publicKey
   const employerHex = u8aToHex(employer.publicKey)
+  console.log("employerHex: ", employerHex)
   
   const dataToBeSignedByGuarantee = getPublicDataToSignByGuarantee(insurance_id, guaranteeU8, workerU8, amount)
+  console.log("dataToBeSignedByGuarantee: ", dataToBeSignedByGuarantee)
+
   const guaranteeSignatureU8 = sign(guarantee, dataToBeSignedByGuarantee)
   const guaranteeSignatureHex = u8aToHex(guaranteeSignatureU8)
+  console.log("guaranteeSignatureHex: ", guaranteeSignatureHex)
   const dataToSignByWorker = getDataToSignByWorker(insurance_id, guaranteeU8, workerU8, amount, guaranteeSignatureU8, employerU8)
   const workerSignatureU8 = sign(worker, dataToSignByWorker)
   const workerSignatureHex = u8aToHex(workerSignatureU8)
 
-  // Create a extrinsic to reimburse
+  // Create a transaction
   const reimburse = api.tx.insurances.reimburse(insurance_id,
     guaranteeHex,
     workerHex,

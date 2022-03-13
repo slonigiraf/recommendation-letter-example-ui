@@ -1,4 +1,4 @@
-import { numberToU8a } from '@polkadot/util';
+import { numberToU8a, stringToU8a } from '@polkadot/util';
 
 //Max JS Number value (9007199254740992) exceeds max Rust u32 value (4294967295)
 //TODO: add exception handling
@@ -13,7 +13,17 @@ export function numberToU8ArrayOfLength(number, length) {
     }  
 }
 export function getPublicDataToSignByGuarantee(letterId, guaranteeU8, workerU8, amount) {
+    console.log("AMOUNT:", typeof(amount))
+    console.log("AMOUNT:", numberToU8ArrayOfLength(amount, 16))
+
+    console.log("AMOUNT_2:", typeof(1000000000000000))
+    console.log("AMOUNT:", numberToU8ArrayOfLength(1000000000000000, 16))
+
     return new Uint8Array([...numberToU8ArrayOfLength(letterId, 4), ...guaranteeU8, ...workerU8, ...numberToU8ArrayOfLength(amount, 16)])
+}
+
+export function getPrivateDataToSignByGuarantee(textHash, letterId, guaranteeU8, workerU8, amount) {
+    return new Uint8Array([...stringToU8a(textHash), ...numberToU8ArrayOfLength(letterId, 4), ...guaranteeU8, ...workerU8, ...numberToU8ArrayOfLength(amount, 16)])
 }
 
 export function getDataToSignByWorker(letterId, guaranteeU8, workerU8, amount, guaranteeSignatureU8, employerU8) {
