@@ -1,6 +1,5 @@
-import { Grid, Button } from 'semantic-ui-react'
+import { Grid, Button, Modal } from 'semantic-ui-react'
 import React, { useState } from 'react'
-import ReactModal from 'react-modal';
 import SignLetterUseRight from './SignLetterUseRight'
 
 export default function Main(props) {
@@ -19,10 +18,23 @@ export default function Main(props) {
         color="blue"
         onClick={() => setModalIsOpen(true)}
       >{textHash}</Button>
-      <ReactModal isOpen={modalIsOpen} style={{ width: "100px" }}>
+      <Modal
+        size={"tiny"}
+        dimmer={"inverted"}
+        onClose={() => setModalIsOpen(false)}
+        onOpen={() => setModalIsOpen(true)}
+        open={modalIsOpen}
+      >
+        <Modal.Header>Sign recommendation letter</Modal.Header>
+        <Modal.Content>
         <SignLetterUseRight letter={props.letter}/>
-        <Button onClick={() => setModalIsOpen(false)}>Close</Button>
-      </ReactModal>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='black' onClick={() => setModalIsOpen(false)}>
+            Close
+          </Button>
+        </Modal.Actions>
+      </Modal>
     </Grid.Row>
 
   )

@@ -79,7 +79,6 @@ export default function Main(props) {
 
   return (
     <Grid.Column width={8}>
-      <h1>Sign recommendation letter</h1>
       <Form>
 
         <Form.Field>

@@ -81,7 +81,6 @@ export default function Main(props) {
 
   return (
     <Grid.Column width={8}>
-      <h1>Penalize guarantee</h1>
       <Form>
 
         <Form.Field style={{ textAlign: 'center' }}>
