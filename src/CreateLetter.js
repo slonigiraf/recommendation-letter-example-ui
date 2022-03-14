@@ -56,7 +56,7 @@ export default function Main(props) {
     
     const reciept = getPublicDataToSignByGuarantee(letterId, guaranteeU8, workerPublicKeyU8, amountValue)
     const guaranteeSignOverReceipt = u8aToHex( sign(guarantee, reciept) )
-    console.log("textHash", textHash)
+    // console.log("textHash", textHash)
     // console.log("letterId", letterId)
     // console.log("guaranteeU8", guaranteeU8)
     // console.log("workerPublicKeyU8", workerPublicKeyU8)

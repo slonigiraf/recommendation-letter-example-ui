@@ -13,12 +13,6 @@ export function numberToU8ArrayOfLength(number, length) {
     }  
 }
 export function getPublicDataToSignByGuarantee(letterId, guaranteeU8, workerU8, amount) {
-    console.log("AMOUNT:", typeof(amount))
-    console.log("AMOUNT:", numberToU8ArrayOfLength(amount, 16))
-
-    console.log("AMOUNT_2:", typeof(1000000000000000))
-    console.log("AMOUNT:", numberToU8ArrayOfLength(1000000000000000, 16))
-
     return new Uint8Array([...numberToU8ArrayOfLength(letterId, 4), ...guaranteeU8, ...workerU8, ...numberToU8ArrayOfLength(amount, 16)])
 }
 

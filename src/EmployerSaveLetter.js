@@ -34,7 +34,7 @@ export default function Main(props) {
           <Modal.Content>
             <QrReader
               onResult={(result, error) => {
-                console.log("Result: " + result)
+                // console.log("Result: " + result)
                 if (result != undefined) {
                   storeLetter(result?.text);
                 }
@@ -52,7 +52,7 @@ export default function Main(props) {
         </Modal>
       </Grid.Row>
       <Grid.Row>
-        <InsurancesList insurances={Array.from(map.values())} />
+        <InsurancesList insurances={Array.from(map.values())} getIPFSDataFromContentID={(cid)=>props.getIPFSDataFromContentID(cid)}/>
       </Grid.Row>
     </Grid.Column>
   )

@@ -25,7 +25,6 @@ import CreateLetter from './CreateLetter'
 import WorkerSaveLetter from './WorkerSaveLetter'
 import EmployerSaveLetter from './EmployerSaveLetter'
 import Upgrade from './Upgrade'
-import IpfsExample from './IpfsExample'
 import { create } from 'ipfs-core'
 
 function Main() {
@@ -99,10 +98,7 @@ function Main() {
       <Container>
         <Grid stackable columns="equal">
           <Grid.Row>
-            <IpfsExample />
-          </Grid.Row>
-          <Grid.Row>
-            <EmployerSaveLetter />
+            <EmployerSaveLetter getIPFSDataFromContentID={(cid)=>getIPFSDataFromContentID(cid)}/>
           </Grid.Row>
           <Grid.Row>
             <WorkerSaveLetter getIPFSDataFromContentID={(cid)=>getIPFSDataFromContentID(cid)}/>

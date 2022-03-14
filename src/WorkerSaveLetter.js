@@ -34,7 +34,7 @@ export default function Main(props) {
           <Modal.Content>
           <QrReader
             onResult={(result, error) => {
-              console.log("Result: " + result)
+              // console.log("Result: " + result)
               if (result != undefined) {
                 storeLetter(result?.text);
               }

@@ -1,11 +1,25 @@
 import { Grid, Button, Modal } from 'semantic-ui-react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import UseInsurance from './UseInsurance'
 
 export default function Main(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
   const [textHash, , , , , , ,] = props.insurance.split(",");
+
+  const [text, setText] = useState(textHash)
+  useEffect(async () => {
+    if (text === textHash) {
+      try {
+        const content = await props.getIPFSDataFromContentID(textHash)
+        console.log("CONTENT", content)
+        setText(content)
+      }
+      catch (e) {
+        setText(textHash+" (loading...)")
+        console.log(e)
+      }
+    }
+  }, []);
 
   return (
     <Grid.Row>
@@ -15,7 +29,7 @@ export default function Main(props) {
         size="mini"
         color="blue"
         onClick={() => setModalIsOpen(true)}
-      >{textHash}</Button>
+      >{text}</Button>
       <Modal
         size={"tiny"}
         dimmer={"inverted"}
@@ -25,7 +39,7 @@ export default function Main(props) {
       >
         <Modal.Header>Penalize guarantee</Modal.Header>
         <Modal.Content>
-          <UseInsurance insurance={props.insurance} />
+          <UseInsurance text={text} insurance={props.insurance} />
         </Modal.Content>
         <Modal.Actions>
           <Button color='black' onClick={() => setModalIsOpen(false)}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Grid, Button } from 'semantic-ui-react'
+import { Form, Grid, Button, List, Label } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import { web3FromSource } from '@polkadot/extension-dapp'
 import { TxButton } from './substrate-lib/components'
@@ -8,9 +8,9 @@ import { u8aToHex } from '@polkadot/util'
 
 export default function Main(props) {
   const [textHash, letterId, guaranteeAddress,
-    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance] = props.insurance.split(",");
-  console.log(textHash, letterId, guaranteeAddress,
-    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance);
+    workerAddress, amount, , guaranteeSignOverReceipt, workerSignOverInsurance] = props.insurance.split(",");
+  // console.log(textHash, letterId, guaranteeAddress,
+  //   workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance);
 
   const { currentAccount } = useSubstrateState()
   const [status, setStatus] = useState(null)
@@ -41,15 +41,15 @@ export default function Main(props) {
     const guaranteeSignatureHex = guaranteeSignOverReceipt
     const workerSignatureHex = workerSignOverInsurance
 
-    console.log("------------")
-    console.log("letterId", letterId)
-    console.log("guaranteeHex", guaranteeHex)
-    console.log("workerHex", workerHex)
-    console.log("employerHex", employerHex)
-    console.log("amount", amount)
-    console.log("guaranteeSignatureHex", guaranteeSignatureHex)
-    console.log("workerSignatureHex", workerSignatureHex)
-    console.log("------------")
+    // console.log("------------")
+    // console.log("letterId", letterId)
+    // console.log("guaranteeHex", guaranteeHex)
+    // console.log("workerHex", workerHex)
+    // console.log("employerHex", employerHex)
+    // console.log("amount", amount)
+    // console.log("guaranteeSignatureHex", guaranteeSignatureHex)
+    // console.log("workerSignatureHex", workerSignatureHex)
+    // console.log("------------")
     
     const reimburse = api.tx.insurances.reimburse(insurance_id,
       guaranteeHex,
@@ -81,6 +81,16 @@ export default function Main(props) {
 
   return (
     <Grid.Column width={8}>
+      <List divided selection>
+          <List.Item>
+            <Label horizontal>Id</Label>
+            {textHash}
+          </List.Item>
+          <List.Item>
+            <Label horizontal>Text</Label>
+            {props.text}
+          </List.Item>
+        </List>
       <Form>
 
         <Form.Field style={{ textAlign: 'center' }}>

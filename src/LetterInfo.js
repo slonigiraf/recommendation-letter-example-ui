@@ -6,27 +6,26 @@ export default function Main(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
 
-  const [textHash, letterId, guaranteeAddress,
-    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt] = props.letter.split(",");
-  console.log(textHash, letterId, guaranteeAddress,
-    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt);
+  const [textHash, , , , , , ] = props.letter.split(",");
+  // console.log(textHash, letterId, guaranteeAddress,
+  //   workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt);
 
   const [text, setText] = useState(textHash)
-  const [textLoaded, setTextLoaded] = useState(false)
 
   useEffect(async () => {
-    if (!textLoaded) {
+    if (text === textHash) {
       try {
         const content = await props.getIPFSDataFromContentID(textHash)
         console.log("CONTENT", content)
         setText(content)
       }
       catch (e) {
+        setText(textHash+" (loading...)")
         console.log(e)
       }
-      setTextLoaded(true)
     }
-  });
+  }, []);
+
   return (
     <Grid.Row>
       <Button

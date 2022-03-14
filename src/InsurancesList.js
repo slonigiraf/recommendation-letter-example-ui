@@ -6,7 +6,7 @@ export default function Main(props) {
   return (
     <Grid.Row>
     {props.insurances.map((insurance, index) => (
-        <InsuranceInfo insurance={insurance}/>
+        <InsuranceInfo key={index} insurance={insurance} getIPFSDataFromContentID={(cid)=>props.getIPFSDataFromContentID(cid)}/>
     ))}
     </Grid.Row>);
 }

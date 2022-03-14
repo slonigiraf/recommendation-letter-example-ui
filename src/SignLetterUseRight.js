@@ -12,8 +12,8 @@ export default function Main(props) {
     workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt] = props.letter.split(",")
   const letterIdValue = parseInt(letterId, 10)
   const amountValue = parseInt(amount, 10)
-  console.log(textHash, letterIdValue, guaranteeAddress,
-    workerAddress, amountValue, guaranteeSignOverPrivateData, guaranteeSignOverReceipt);
+  // console.log(textHash, letterIdValue, guaranteeAddress,
+  //   workerAddress, amountValue, guaranteeSignOverPrivateData, guaranteeSignOverReceipt);
 
   const { currentAccount } = useSubstrateState()
   const [status, setStatus] = useState(null)
