@@ -25,6 +25,7 @@ import CreateLetter from './CreateLetter'
 import WorkerSaveLetter from './WorkerSaveLetter'
 import EmployerSaveLetter from './EmployerSaveLetter'
 import Upgrade from './Upgrade'
+import IpfsExample from './IpfsExample'
 
 function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState()
@@ -67,6 +68,9 @@ function Main() {
       </Sticky>
       <Container>
         <Grid stackable columns="equal">
+          <Grid.Row>
+            <IpfsExample />
+          </Grid.Row>
           <Grid.Row>
             <EmployerSaveLetter />
           </Grid.Row>
