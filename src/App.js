@@ -1,4 +1,4 @@
-import React, { createRef } from 'react'
+import React, { createRef, useState } from 'react'
 import {
   Container,
   Dimmer,
@@ -26,9 +26,30 @@ import WorkerSaveLetter from './WorkerSaveLetter'
 import EmployerSaveLetter from './EmployerSaveLetter'
 import Upgrade from './Upgrade'
 import IpfsExample from './IpfsExample'
+import { create } from 'ipfs-core'
 
 function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState()
+  const [ipfs, setIpfs] = useState(null)
+
+  const getIPFSNode = async () => {
+    let node = ipfs;
+    if (!ipfs) {
+      console.log('Creating IPFS node...')
+      node = await create({
+        repo: String(Math.random() + Date.now()),
+        init: { alogorithm: 'ed25519' }
+      })
+      setIpfs(node)
+    }
+    return node
+  }
+
+  const getIPFSContentID = async (content) => {
+    let node = await getIPFSNode()
+    const file = await node.add(content)
+    return file.cid
+  }
 
   const loader = text => (
     <Dimmer active>
@@ -78,7 +99,7 @@ function Main() {
             <WorkerSaveLetter />
           </Grid.Row>
           <Grid.Row>
-            <CreateLetter />
+            <CreateLetter getIPFSContentID={(content)=>getIPFSContentID(content)}/>
           </Grid.Row>
           <Grid.Row stretched>
             <NodeInfo />

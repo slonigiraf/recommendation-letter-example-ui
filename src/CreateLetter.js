@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Form, Input, TextArea, Grid, Button } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import QRCode from 'qrcode.react';
-import { sha256 } from 'js-sha256';
 import { web3FromSource } from '@polkadot/extension-dapp'
 import { sign, getPublicDataToSignByGuarantee , getPrivateDataToSignByGuarantee} from './helpers.mjs';
 import { hexToU8a, u8aToHex } from '@polkadot/util';
@@ -10,6 +9,7 @@ import { hexToU8a, u8aToHex } from '@polkadot/util';
 export default function Main(props) {
   const { currentAccount } = useSubstrateState()
   const [status, setStatus] = useState(null)
+
   const [formState, setFormState] = useState({ letterInfo: '', text: '', workerPublicKeyHex: '', amount: 0 })
 
   const onChange = (_, data) =>
@@ -32,7 +32,7 @@ export default function Main(props) {
   const getLetterInfo = async () => {
     // skill_ipfs_hash , insurance_id , teach_address , stud_address , amount , teach_sign_1 , teach_sign_2
     let result = [];
-    const textHash = sha256(text);
+    const textHash = await props.getIPFSContentID(text);
     result.push(textHash);
     //
     const letterId = getLetterId();
@@ -56,16 +56,17 @@ export default function Main(props) {
     
     const reciept = getPublicDataToSignByGuarantee(letterId, guaranteeU8, workerPublicKeyU8, amountValue)
     const guaranteeSignOverReceipt = u8aToHex( sign(guarantee, reciept) )
-    console.log("letterId", letterId)
-    console.log("guaranteeU8", guaranteeU8)
-    console.log("workerPublicKeyU8", workerPublicKeyU8)
-    console.log("amount",amount)
-    console.log("reciept",reciept)
-    console.log("guaranteeSignOverReceipt",guaranteeSignOverReceipt)
+    console.log("textHash", textHash)
+    // console.log("letterId", letterId)
+    // console.log("guaranteeU8", guaranteeU8)
+    // console.log("workerPublicKeyU8", workerPublicKeyU8)
+    // console.log("amount",amount)
+    // console.log("reciept",reciept)
+    // console.log("guaranteeSignOverReceipt",guaranteeSignOverReceipt)
 
     result.push(guaranteeSignOverReceipt);
     //
-    console.log(result);
+    // console.log(result);
     return result.join(",");
   }
 
