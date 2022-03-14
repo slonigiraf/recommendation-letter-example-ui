@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Input, Grid, Button } from 'semantic-ui-react'
+import { Form, Input, Grid, Button, List, Label } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import QRCode from 'qrcode.react';
 import { web3FromSource } from '@polkadot/extension-dapp'
@@ -77,10 +77,22 @@ export default function Main(props) {
     <QRCode value={letterInfo} size="160" />
   </Form.Field> : "";
 
+
+
+
   return (
     <Grid.Column width={8}>
       <Form>
-
+        <List divided selection>
+          <List.Item>
+            <Label horizontal>Id</Label>
+            {textHash}
+          </List.Item>
+          <List.Item>
+            <Label horizontal>Text</Label>
+            {props.text}
+          </List.Item>
+        </List>
         <Form.Field>
           <Input
             fluid

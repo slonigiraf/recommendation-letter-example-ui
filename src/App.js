@@ -51,6 +51,15 @@ function Main() {
     return file.cid
   }
 
+  const getIPFSDataFromContentID = async (cid) => {
+    const text = []
+    const node = await getIPFSNode()
+    for await (const chunk of node.cat(cid)) {
+      text.push(chunk)
+    }
+    return text.toString()
+  }
+
   const loader = text => (
     <Dimmer active>
       <Loader size="small">{text}</Loader>
@@ -96,7 +105,7 @@ function Main() {
             <EmployerSaveLetter />
           </Grid.Row>
           <Grid.Row>
-            <WorkerSaveLetter />
+            <WorkerSaveLetter getIPFSDataFromContentID={(cid)=>getIPFSDataFromContentID(cid)}/>
           </Grid.Row>
           <Grid.Row>
             <CreateLetter getIPFSContentID={(content)=>getIPFSContentID(content)}/>

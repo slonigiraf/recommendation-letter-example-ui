@@ -6,7 +6,7 @@ export default function Main(props) {
   return (
     <Grid.Row>
     {props.letters.map((letter, index) => (
-        <LetterInfo letter={letter}/>
+        <LetterInfo letter={letter} getIPFSDataFromContentID={(cid)=>props.getIPFSDataFromContentID(cid)}/>
     ))}
     </Grid.Row>);
 }

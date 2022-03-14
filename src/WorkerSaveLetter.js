@@ -53,7 +53,7 @@ export default function Main(props) {
         </Modal>
       </Grid.Row>
       <Grid.Row>
-        <LettersList letters={Array.from(map.values())}/>
+        <LettersList getIPFSDataFromContentID={(cid)=>props.getIPFSDataFromContentID(cid)} letters={Array.from(map.values())}/>
       </Grid.Row>
     </Grid.Column>
   )
