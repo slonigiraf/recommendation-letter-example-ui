@@ -6621,7 +6621,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"exenv@npm:^1.2.0, exenv@npm:^1.2.2":
+"exenv@npm:^1.2.2":
   version: 1.2.2
   resolution: "exenv@npm:1.2.2"
   checksum: a894f3b60ab8419e0b6eec99c690a009c8276b4c90655ccaf7d28faba2de3a6b93b3d92210f9dc5efd36058d44f04098f6bbccef99859151104bfd49939904dc
@@ -11519,28 +11519,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-lifecycles-compat@npm:^3.0.0":
-  version: 3.0.4
-  resolution: "react-lifecycles-compat@npm:3.0.4"
-  checksum: a904b0fc0a8eeb15a148c9feb7bc17cec7ef96e71188280061fc340043fd6d8ee3ff233381f0e8f95c1cf926210b2c4a31f38182c8f35ac55057e453d6df204f
-  languageName: node
-  linkType: hard
-
-"react-modal@npm:^3.14.4":
-  version: 3.14.4
-  resolution: "react-modal@npm:3.14.4"
-  dependencies:
-    exenv: ^1.2.0
-    prop-types: ^15.7.2
-    react-lifecycles-compat: ^3.0.0
-    warning: ^4.0.3
-  peerDependencies:
-    react: ^0.14.0 || ^15.0.0 || ^16 || ^17
-    react-dom: ^0.14.0 || ^15.0.0 || ^16 || ^17
-  checksum: 71457de902d45de390932fb68380c4a72fcd51e64faaf8b96138c3cb402d2e445002220560614ef6035eb349ff933bcbbe35c4cb85fb66c1129e65ad40336b8b
-  languageName: node
-  linkType: hard
-
 "react-popper@npm:^2.2.4":
   version: 2.2.5
   resolution: "react-popper@npm:2.2.5"
@@ -12879,7 +12857,6 @@ __metadata:
     react-app-rewired: ^2.2.1
     react-copy-to-clipboard: ^5.0.4
     react-dom: ^17.0.2
-    react-modal: ^3.14.4
     react-qr-reader: ^3.0.0-beta-1
     react-scripts: ^5.0.0
     semantic-ui-css: "Semantic-Org/Semantic-UI-CSS#master"
@@ -13658,7 +13635,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"warning@npm:^4.0.2, warning@npm:^4.0.3":
+"warning@npm:^4.0.2":
   version: 4.0.3
   resolution: "warning@npm:4.0.3"
   dependencies:

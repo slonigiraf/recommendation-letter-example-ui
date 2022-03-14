@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Grid, Button } from 'semantic-ui-react'
+import { Grid, Button, Modal } from 'semantic-ui-react'
 import { QrReader } from 'react-qr-reader';
-import ReactModal from 'react-modal';
 import LettersList from './LettersList'
 
 export default function Main(props) {
@@ -23,8 +22,16 @@ export default function Main(props) {
     <Grid.Column width={8}>
       <Grid.Row>
         <h1>My recommendation letters</h1>
-        <Button onClick={() => setModalIsOpen(true)}>Scan letter</Button>
-        <ReactModal isOpen={modalIsOpen} style={{ width: "100px" }}>
+        <Modal
+          size={"tiny"}
+          dimmer={"inverted"}
+          onClose={() => setModalIsOpen(false)}
+          onOpen={() => setModalIsOpen(true)}
+          open={modalIsOpen}
+          trigger={<Button>Scan a new letter</Button>}
+        >
+          <Modal.Header>Scan a letter QR code</Modal.Header>
+          <Modal.Content>
           <QrReader
             onResult={(result, error) => {
               console.log("Result: " + result)
@@ -37,8 +44,13 @@ export default function Main(props) {
             }}
         
           />
-         <Button onClick={() => setModalIsOpen(false)}>Cancel</Button>
-        </ReactModal>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='black' onClick={() => setModalIsOpen(false)}>
+              Cancel
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </Grid.Row>
       <Grid.Row>
         <LettersList letters={Array.from(map.values())}/>
