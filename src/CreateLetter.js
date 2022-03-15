@@ -141,7 +141,7 @@ export default function Main(props) {
             onOpen={() => setModalIsOpen(true)}
             open={modalIsOpen}
           >
-            <Modal.Header>A letter info</Modal.Header>
+            <Modal.Header>Scan this from a worker account</Modal.Header>
             <Modal.Content>
             <QRCode value={letterInfo} size="160" />
             </Modal.Content>
