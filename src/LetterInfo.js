@@ -16,7 +16,6 @@ export default function Main(props) {
     if (text === textHash) {
       try {
         const content = await props.getIPFSDataFromContentID(textHash)
-        console.log("CONTENT", content)
         setText(content)
       }
       catch (e) {

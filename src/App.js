@@ -1,4 +1,4 @@
-import React, { createRef, useState } from 'react'
+import React, { createRef, useState, useEffect } from 'react'
 import {
   Container,
   Dimmer,
@@ -6,6 +6,7 @@ import {
   Grid,
   Sticky,
   Message,
+  Tab,
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -23,6 +24,9 @@ import { create } from 'ipfs-core'
 function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState()
   const [ipfs, setIpfs] = useState(null)
+  useEffect(async () => {
+    getIPFSNode()
+  }, []);
 
   const getIPFSNode = async () => {
     let node = ipfs;
@@ -83,6 +87,25 @@ function Main() {
 
   const contextRef = createRef()
 
+  const panes = [
+    {
+      menuItem: 'Guarantee',
+      render: () => <Tab.Pane><CreateLetter getIPFSContentID={(content) => getIPFSContentID(content)} /></Tab.Pane>,
+    },
+    {
+      menuItem: 'Worker',
+      render: () => <Tab.Pane><WorkerSaveLetter getIPFSDataFromContentID={(cid) => getIPFSDataFromContentID(cid)} /></Tab.Pane>,
+    },
+    {
+      menuItem: 'Employer',
+      render: () => <Tab.Pane><EmployerSaveLetter getIPFSDataFromContentID={(cid) => getIPFSDataFromContentID(cid)} /></Tab.Pane>,
+    },
+  ]
+
+  const RoleSelector = () => (
+    <Tab panes={panes} />
+  )
+
   return (
     <div ref={contextRef}>
       <Sticky context={contextRef}>
@@ -90,10 +113,10 @@ function Main() {
       </Sticky>
       <Container>
         <Grid stackable columns="equal">
-          <Grid.Row><h1>Recommendation letters</h1></Grid.Row>
-          <Grid.Row><CreateLetter getIPFSContentID={(content) => getIPFSContentID(content)} /></Grid.Row>
-          <Grid.Row><WorkerSaveLetter getIPFSDataFromContentID={(cid) => getIPFSDataFromContentID(cid)} /></Grid.Row>
-          <Grid.Row><EmployerSaveLetter getIPFSDataFromContentID={(cid) => getIPFSDataFromContentID(cid)} /></Grid.Row>
+        <Grid.Row><h1>Recommendation letters</h1></Grid.Row>
+          <Grid.Row>
+            <RoleSelector />
+          </Grid.Row>
           <Grid.Row stretched>
             <Balances />
           </Grid.Row>
