@@ -14,17 +14,10 @@ import { DeveloperConsole } from './substrate-lib/components'
 
 import AccountSelector from './AccountSelector'
 import Balances from './Balances'
-import BlockNumber from './BlockNumber'
-import Events from './Events'
-import Interactor from './Interactor'
-import Metadata from './Metadata'
-import NodeInfo from './NodeInfo'
-import TemplateModule from './TemplateModule'
 import Transfer from './Transfer'
 import CreateLetter from './CreateLetter'
 import WorkerSaveLetter from './WorkerSaveLetter'
 import EmployerSaveLetter from './EmployerSaveLetter'
-import Upgrade from './Upgrade'
 import { create } from 'ipfs-core'
 
 function Main() {
@@ -107,24 +100,10 @@ function Main() {
             <CreateLetter getIPFSContentID={(content)=>getIPFSContentID(content)}/>
           </Grid.Row>
           <Grid.Row stretched>
-            <NodeInfo />
-            <Metadata />
-            <BlockNumber />
-            <BlockNumber finalized />
-          </Grid.Row>
-          <Grid.Row stretched>
             <Balances />
           </Grid.Row>
           <Grid.Row>
             <Transfer />
-            <Upgrade />
-          </Grid.Row>
-          <Grid.Row>
-            <Interactor />
-            <Events />
-          </Grid.Row>
-          <Grid.Row>
-            <TemplateModule />
           </Grid.Row>
         </Grid>
       </Container>
