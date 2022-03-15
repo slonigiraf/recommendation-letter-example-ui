@@ -20,30 +20,36 @@ export default function Main(props) {
 
   return (
     <Grid.Column width={8}>
+      <h2>My recommendation letters</h2>
       <Grid.Row>
-        <h1>My recommendation letters</h1>
+        <LettersList getIPFSDataFromContentID={(cid) => props.getIPFSDataFromContentID(cid)} letters={Array.from(map.values())} />
+      </Grid.Row>
+      <Grid.Row>&nbsp;</Grid.Row>
+      <Grid.Row>
+    
+        
         <Modal
           size={"tiny"}
           dimmer={"inverted"}
           onClose={() => setModalIsOpen(false)}
           onOpen={() => setModalIsOpen(true)}
           open={modalIsOpen}
-          trigger={<Button>Scan a new letter</Button>}
+          trigger={<Button>Add a letter about me</Button>}
         >
           <Modal.Header>Scan a letter QR code</Modal.Header>
           <Modal.Content>
-          <QrReader
-            onResult={(result, error) => {
-              // console.log("Result: " + result)
-              if (result != undefined) {
-                storeLetter(result?.text);
-              }
-              if (!error) {
-                console.info(error);
-              }
-            }}
-        
-          />
+            <QrReader
+              onResult={(result, error) => {
+                // console.log("Result: " + result)
+                if (result != undefined) {
+                  storeLetter(result?.text);
+                }
+                if (!error) {
+                  console.info(error);
+                }
+              }}
+
+            />
           </Modal.Content>
           <Modal.Actions>
             <Button color='black' onClick={() => setModalIsOpen(false)}>
@@ -52,9 +58,7 @@ export default function Main(props) {
           </Modal.Actions>
         </Modal>
       </Grid.Row>
-      <Grid.Row>
-        <LettersList getIPFSDataFromContentID={(cid)=>props.getIPFSDataFromContentID(cid)} letters={Array.from(map.values())}/>
-      </Grid.Row>
+
     </Grid.Column>
   )
 }

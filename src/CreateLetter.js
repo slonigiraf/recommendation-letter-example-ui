@@ -3,19 +3,18 @@ import { Form, Input, TextArea, Grid, Button } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import QRCode from 'qrcode.react';
 import { web3FromSource } from '@polkadot/extension-dapp'
-import { sign, getPublicDataToSignByGuarantee , getPrivateDataToSignByGuarantee} from './helpers.mjs';
+import { sign, getPublicDataToSignByGuarantee, getPrivateDataToSignByGuarantee } from './helpers.mjs';
 import { hexToU8a, u8aToHex } from '@polkadot/util';
 
 export default function Main(props) {
   const { currentAccount } = useSubstrateState()
-  const [status, setStatus] = useState(null)
-
-  const [formState, setFormState] = useState({ letterInfo: '', text: '', workerPublicKeyHex: '', amount: 0 })
+  const [letterInfo, setLetterInfo] = useState('');
+  const [formState, setFormState] = useState({ text: '', workerPublicKeyHex: '', amount: 0 })
 
   const onChange = (_, data) =>
     setFormState(prev => ({ ...prev, [data.state]: data.value }))
 
-  const { letterInfo, text, workerPublicKeyHex: workerPublicKeyHex, amount } = formState
+  const { text, workerPublicKeyHex: workerPublicKeyHex, amount } = formState
 
   const { keyring } = useSubstrateState()
   const accounts = keyring.getPairs()
@@ -50,12 +49,12 @@ export default function Main(props) {
     result.push(amountValue);
     //
     const privateData = getPrivateDataToSignByGuarantee(textHash, letterId, guaranteeU8, workerPublicKeyU8, amountValue)
-    const guaranteeSignOverPrivateData = u8aToHex( sign(guarantee, privateData) )
+    const guaranteeSignOverPrivateData = u8aToHex(sign(guarantee, privateData))
     result.push(guaranteeSignOverPrivateData);
     //
-    
+
     const reciept = getPublicDataToSignByGuarantee(letterId, guaranteeU8, workerPublicKeyU8, amountValue)
-    const guaranteeSignOverReceipt = u8aToHex( sign(guarantee, reciept) )
+    const guaranteeSignOverReceipt = u8aToHex(sign(guarantee, reciept))
     // console.log("textHash", textHash)
     // console.log("letterId", letterId)
     // console.log("guaranteeU8", guaranteeU8)
@@ -95,17 +94,14 @@ export default function Main(props) {
 
   const showQR = async () => {
     const data = await getLetterInfo();
-    setStatus(true);
-    setFormState({ ...formState, letterInfo: data });
+    setLetterInfo(data)
+    console.log("Data: ", data)
+    setFormState({ ...formState});
   }
-
-  const qrPart =  status? <Form.Field>
-  <QRCode value={letterInfo} size="160"/>
-  </Form.Field> : "";
-
+  console.log("Reload")
   return (
     <Grid.Column width={8}>
-      <h1>Create recommendation letter</h1>
+      <h2>Create recommendation letter</h2>
       <Form>
         <Form.Field>
           <TextArea
@@ -139,16 +135,14 @@ export default function Main(props) {
         </Form.Field>
         <Form.Field style={{ textAlign: 'center' }}>
           <Button
-            setStatus={setStatus}
             onClick={() => {
               showQR();
             }}
           >Create</Button>
         </Form.Field>
-
-        {qrPart}
-
-        <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+        <Form.Field>
+          <QRCode value={letterInfo} size="160" />
+        </Form.Field>
       </Form>
     </Grid.Column>
   )

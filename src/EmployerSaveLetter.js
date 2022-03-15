@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Grid, Button, Modal } from 'semantic-ui-react'
+import { Grid, Button, Modal, GridRow } from 'semantic-ui-react'
 import { QrReader } from 'react-qr-reader';
 import InsurancesList from './InsurancesList'
 
@@ -20,15 +20,19 @@ export default function Main(props) {
 
   return (
     <Grid.Column width={8}>
+      <h2>Worker's recommendation letters</h2>
       <Grid.Row>
-        <h1>Worker's recommendation letters</h1>
+        <InsurancesList insurances={Array.from(map.values())} getIPFSDataFromContentID={(cid) => props.getIPFSDataFromContentID(cid)} />
+      </Grid.Row>
+      <GridRow>&nbsp;</GridRow>
+      <Grid.Row>
         <Modal
           size={"tiny"}
           dimmer={"inverted"}
           onClose={() => setModalIsOpen(false)}
           onOpen={() => setModalIsOpen(true)}
           open={modalIsOpen}
-          trigger={<Button>Scan a new letter</Button>}
+          trigger={<Button>Scan a letter about a worker</Button>}
         >
           <Modal.Header>Scan a letter QR code</Modal.Header>
           <Modal.Content>
@@ -50,9 +54,6 @@ export default function Main(props) {
             </Button>
           </Modal.Actions>
         </Modal>
-      </Grid.Row>
-      <Grid.Row>
-        <InsurancesList insurances={Array.from(map.values())} getIPFSDataFromContentID={(cid)=>props.getIPFSDataFromContentID(cid)}/>
       </Grid.Row>
     </Grid.Column>
   )

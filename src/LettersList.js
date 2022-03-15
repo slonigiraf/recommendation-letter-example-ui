@@ -1,12 +1,12 @@
-import { Grid } from 'semantic-ui-react'
+import { List } from 'semantic-ui-react'
 import LetterInfo from './LetterInfo'
 import React from 'react'
 
 export default function Main(props) {
   return (
-    <Grid.Row>
-    {props.letters.map((letter, index) => (
-        <LetterInfo key={index} letter={letter} getIPFSDataFromContentID={(cid)=>props.getIPFSDataFromContentID(cid)}/>
-    ))}
-    </Grid.Row>);
+    <List divided relaxed>
+      {props.letters.map((letter, index) => (
+        <List.Item><List.Content><List.Description as='a'><LetterInfo key={index} letter={letter} getIPFSDataFromContentID={(cid) => props.getIPFSDataFromContentID(cid)} /></List.Description></List.Content></List.Item>
+      ))}
+    </List>);
 }

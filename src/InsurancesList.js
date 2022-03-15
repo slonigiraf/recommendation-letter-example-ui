@@ -1,12 +1,12 @@
-import { Grid } from 'semantic-ui-react'
+import { List } from 'semantic-ui-react'
 import InsuranceInfo from './InsuranceInfo'
 import React from 'react'
 
 export default function Main(props) {
   return (
-    <Grid.Row>
+    <List divided relaxed>
     {props.insurances.map((insurance, index) => (
-        <InsuranceInfo key={index} insurance={insurance} getIPFSDataFromContentID={(cid)=>props.getIPFSDataFromContentID(cid)}/>
+        <List.Item><List.Content><List.Description as='a'><InsuranceInfo key={index} insurance={insurance} getIPFSDataFromContentID={(cid)=>props.getIPFSDataFromContentID(cid)}/></List.Description></List.Content></List.Item>
     ))}
-    </Grid.Row>);
+    </List>);
 }
