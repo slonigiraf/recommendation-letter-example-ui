@@ -6,7 +6,6 @@ import {
   Grid,
   Sticky,
   Message,
-  Tab,
 } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -84,14 +83,6 @@ function Main() {
 
   const contextRef = createRef()
 
-  const panes = [
-    { menuItem: 'Guarantee', render: () => <Tab.Pane><CreateLetter getIPFSContentID={(content) => getIPFSContentID(content)} /></Tab.Pane> },
-    { menuItem: 'Worker', render: () => <Tab.Pane><WorkerSaveLetter getIPFSDataFromContentID={(cid) => getIPFSDataFromContentID(cid)} /></Tab.Pane> },
-    { menuItem: 'Employer', render: () => <Tab.Pane><EmployerSaveLetter getIPFSDataFromContentID={(cid) => getIPFSDataFromContentID(cid)} /></Tab.Pane> },
-
-  ]
-  const SelectARole = () => <Tab panes={panes} />
-
   return (
     <div ref={contextRef}>
       <Sticky context={contextRef}>
@@ -100,9 +91,9 @@ function Main() {
       <Container>
         <Grid stackable columns="equal">
           <Grid.Row><h1>Recommendation letters</h1></Grid.Row>
-          <Grid.Row>
-            <SelectARole />
-          </Grid.Row>
+          <Grid.Row><CreateLetter getIPFSContentID={(content) => getIPFSContentID(content)} /></Grid.Row>
+          <Grid.Row><WorkerSaveLetter getIPFSDataFromContentID={(cid) => getIPFSDataFromContentID(cid)} /></Grid.Row>
+          <Grid.Row><EmployerSaveLetter getIPFSDataFromContentID={(cid) => getIPFSDataFromContentID(cid)} /></Grid.Row>
           <Grid.Row stretched>
             <Balances />
           </Grid.Row>

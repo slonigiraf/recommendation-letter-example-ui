@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Input, TextArea, Grid, Button } from 'semantic-ui-react'
+import { Form, Input, TextArea, Grid, Button, Modal } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import QRCode from 'qrcode.react';
 import { web3FromSource } from '@polkadot/extension-dapp'
@@ -10,6 +10,7 @@ export default function Main(props) {
   const { currentAccount } = useSubstrateState()
   const [letterInfo, setLetterInfo] = useState('');
   const [formState, setFormState] = useState({ text: '', workerPublicKeyHex: '', amount: 0 })
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const onChange = (_, data) =>
     setFormState(prev => ({ ...prev, [data.state]: data.value }))
@@ -93,12 +94,11 @@ export default function Main(props) {
   }
 
   const showQR = async () => {
-    const data = await getLetterInfo();
+    const data = await getLetterInfo()
     setLetterInfo(data)
-    console.log("Data: ", data)
-    setFormState({ ...formState});
+    setModalIsOpen(true)
+    setFormState({ ...formState })
   }
-  console.log("Reload")
   return (
     <Grid.Column width={8}>
       <h2>Create recommendation letter</h2>
@@ -134,14 +134,26 @@ export default function Main(props) {
           />
         </Form.Field>
         <Form.Field style={{ textAlign: 'center' }}>
-          <Button
-            onClick={() => {
+          <Modal
+            size={"tiny"}
+            dimmer={"inverted"}
+            onClose={() => setModalIsOpen(false)}
+            onOpen={() => setModalIsOpen(true)}
+            open={modalIsOpen}
+          >
+            <Modal.Header>A letter info</Modal.Header>
+            <Modal.Content>
+            <QRCode value={letterInfo} size="160" />
+            </Modal.Content>
+            <Modal.Actions>
+              <Button color='black' onClick={() => setModalIsOpen(false)}>
+                Cancel
+              </Button>
+            </Modal.Actions>
+          </Modal>
+          <Button onClick={() => {
               showQR();
-            }}
-          >Create</Button>
-        </Form.Field>
-        <Form.Field>
-          <QRCode value={letterInfo} size="160" />
+            }}>Create</Button>
         </Form.Field>
       </Form>
     </Grid.Column>
