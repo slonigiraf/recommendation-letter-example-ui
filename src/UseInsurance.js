@@ -7,7 +7,7 @@ import { ApiPromise } from '@polkadot/api'
 import { u8aToHex } from '@polkadot/util'
 
 export default function Main(props) {
-  const [textHash, letterId, guaranteeAddress,
+  const [, letterId, guaranteeAddress,
     workerAddress, amount, , guaranteeSignOverReceipt, workerSignOverInsurance] = props.insurance.split(",");
   // console.log(textHash, letterId, guaranteeAddress,
   //   workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance);
@@ -83,12 +83,11 @@ export default function Main(props) {
     <Grid.Column width={8}>
       <List divided selection>
           <List.Item>
-            <Label horizontal>Id</Label>
-            {textHash}
-          </List.Item>
-          <List.Item>
             <Label horizontal>Text</Label>
             {props.text}
+          </List.Item>
+          <List.Item>
+          <Label as='a' tag>{workerAddress}</Label>
           </List.Item>
         </List>
       <Form>

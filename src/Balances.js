@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Table, Grid, Button, Label } from 'semantic-ui-react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useSubstrateState } from './substrate-lib'
+import { u8aToHex } from '@polkadot/util';
 
 export default function Main(props) {
   const { api, keyring } = useSubstrateState()
@@ -46,7 +47,7 @@ export default function Main(props) {
                 <strong>Name</strong>
               </Table.Cell>
               <Table.Cell width={10}>
-                <strong>Address</strong>
+                <strong>Address / Public key</strong>
               </Table.Cell>
               <Table.Cell width={3}>
                 <strong>Balance</strong>
@@ -62,6 +63,20 @@ export default function Main(props) {
                     {account.address}
                   </span>
                   <CopyToClipboard text={account.address}>
+                    <Button
+                      basic
+                      circular
+                      compact
+                      size="mini"
+                      color="blue"
+                      icon="copy outline"
+                    />
+                  </CopyToClipboard>
+                  <br/>
+                  <span style={{ display: 'inline-block', minWidth: '31em' }}>
+                    {u8aToHex(account.publicKey)}
+                  </span>
+                  <CopyToClipboard text={u8aToHex(account.publicKey)}>
                     <Button
                       basic
                       circular

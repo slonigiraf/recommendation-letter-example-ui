@@ -98,7 +98,7 @@ export default function Main(props) {
             fluid
             label="To employer"
             type="text"
-            placeholder="public key hex"
+            placeholder="public key"
             value={employerPublicKeyHex}
             state="employerPublicKeyHex"
             onChange={onChange}
