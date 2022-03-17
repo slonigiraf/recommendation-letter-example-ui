@@ -12,9 +12,6 @@ export default function Main(props) {
     workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt] = props.letter.split(",")
   const letterIdValue = parseInt(letterId, 10)
   const amountValue = parseInt(amount, 10)
-  // console.log(textHash, letterIdValue, guaranteeAddress,
-  //   workerAddress, amountValue, guaranteeSignOverPrivateData, guaranteeSignOverReceipt);
-
   const { currentAccount } = useSubstrateState()
   const [status, setStatus] = useState(null)
   const [formState, setFormState] = useState({ letterInfo: '', employerPublicKeyHex: '' })
@@ -37,8 +34,6 @@ export default function Main(props) {
   })
 
   const getLetterInfo = async () => {
-    //insurance_id | teach_address | stud_address | amount | teach_sign_2 | employer_address | stud_sign3
-
     const [worker,] = await getFromAcct();
 
     let letterInsurance = getDataToSignByWorker(letterIdValue, hexToU8a(guaranteeAddress),

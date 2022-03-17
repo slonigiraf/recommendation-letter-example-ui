@@ -5,12 +5,7 @@ import { getIPFSDataFromContentID } from './helpers.mjs';
 
 export default function Main(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
-
   const [textHash, , , , , ,] = props.letter.split(",");
-  // console.log(textHash, letterId, guaranteeAddress,
-  //   workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt);
-
   const [text, setText] = useState(textHash)
 
   useEffect(() => {
