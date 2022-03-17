@@ -27,7 +27,7 @@ export default function Main(props) {
       }
     }
     fetchData()
-  }, []);
+  }, [props.ipfs, textHash, text]);
 
   return (
     <Grid.Row>

@@ -26,23 +26,18 @@ function Main() {
   const [ipfs, setIpfs] = useState(null)
   useEffect(() => {
     async function fetchData() {
-      getIPFSNode()
+      let node = ipfs;
+      if (!ipfs) {
+        console.log('Creating IPFS node...')
+        node = await create({
+          repo: String(Math.random() + Date.now()),
+          init: { alogorithm: 'ed25519' }
+        })
+        setIpfs(node)
+      }
     }
     fetchData()
-  }, []);
-
-  const getIPFSNode = async () => {
-    let node = ipfs;
-    if (!ipfs) {
-      console.log('Creating IPFS node...')
-      node = await create({
-        repo: String(Math.random() + Date.now()),
-        init: { alogorithm: 'ed25519' }
-      })
-      setIpfs(node)
-    }
-    return node
-  }
+  }, [ipfs]);
 
   const loader = text => (
     <Dimmer active>
