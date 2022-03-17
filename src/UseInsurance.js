@@ -6,23 +6,17 @@ import { TxButton } from './substrate-lib/components'
 import { u8aToHex } from '@polkadot/util'
 
 export default function Main(props) {
-  const [cid, letterId, guaranteeAddress,
-    workerAddress, amount, , guaranteeSignOverReceipt, workerSignOverInsurance] = props.insurance.split(",");
+  const [cid, letterId, guaranteeHex,
+    workerHex, amount, , guaranteeSignatureOverReceiptHex, workerSignatureHex] = props.insurance.split(",");
   // console.log(textHash, letterId, guaranteeAddress,
   //   workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance);
 
   const { currentAccount } = useSubstrateState()
-  const [status, setStatus] = useState(null)
-
-  const [insurance_id, setInsurance_id] = useState('')
-  const [guaranteeHex, setGuaranteeHex] = useState('')
-  const [workerHex, setWorkerHex] = useState('')
-  const [employerHex, setEmployerHex] = useState('')
-  const [guaranteeSignatureHex, setGuaranteeSignatureHex] = useState('')
-  const [workerSignatureHex, setWorkerSignatureHex] = useState('')
-
-
   const { keyring } = useSubstrateState()
+  
+  const [status, setStatus] = useState(null)
+  const [employerHex, setEmployerHex] = useState('')
+
   const accounts = keyring.getPairs()
 
   const availableAccounts = []
@@ -40,15 +34,10 @@ export default function Main(props) {
     localStorage.used = JSON.stringify(Array.from(updatedSet));
   }
 
-  useEffect( () => {
+  useEffect(() => {
     async function fetchData() {
-    const [employer,] = await getFromAcct()
-    setInsurance_id(letterId)
-    setGuaranteeHex(guaranteeAddress)
-    setWorkerHex(workerAddress)
-    setEmployerHex(u8aToHex(employer.publicKey))
-    setGuaranteeSignatureHex(guaranteeSignOverReceipt)
-    setWorkerSignatureHex(workerSignOverInsurance)
+      const [employer,] = await getFromAcct()
+      setEmployerHex(u8aToHex(employer.publicKey))
     }
     fetchData()
   }, []);
@@ -82,7 +71,7 @@ export default function Main(props) {
           {props.text}
         </List.Item>
         <List.Item>
-          <Label as='a' tag>{workerAddress}</Label>
+          <Label as='a' tag>{workerHex}</Label>
         </List.Item>
       </List>
       <Form>
@@ -96,12 +85,12 @@ export default function Main(props) {
             attrs={{
               palletRpc: 'insurances',
               callable: 'reimburse',
-              inputParams: [insurance_id,
+              inputParams: [letterId,
                 guaranteeHex,
                 workerHex,
                 employerHex,
                 amount,
-                guaranteeSignatureHex,
+                guaranteeSignatureOverReceiptHex,
                 workerSignatureHex],
               paramFields: [true, true, true, true, true, true, true],
             }}
