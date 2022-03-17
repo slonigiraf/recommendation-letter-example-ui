@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import { Grid, Button, Modal } from 'semantic-ui-react'
-import { QrReader } from 'react-qr-reader';
+import { QrReader } from 'react-qr-reader'
 import LettersList from './LettersList'
 
 export default function Main(props) {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [map, setMap] = useState(localStorage.letters ? new Map(JSON.parse(localStorage.letters)) : new Map());
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [map, setMap] = useState(localStorage.letters ? new Map(JSON.parse(localStorage.letters)) : new Map())
 
   const storeLetter = data => {
-    let dataArray = data.split(",");
+    let dataArray = data.split(",")
     if (dataArray.length === 7) {
-      const updatedMap = localStorage.letters ? new Map(JSON.parse(localStorage.letters)) : new Map();
-      updatedMap.set(dataArray[0], data);
-      localStorage.letters = JSON.stringify(Array.from(updatedMap.entries()));
-      setMap(updatedMap);
-      setModalIsOpen(false);
+      const updatedMap = localStorage.letters ? new Map(JSON.parse(localStorage.letters)) : new Map()
+      updatedMap.set(dataArray[0], data)
+      localStorage.letters = JSON.stringify(Array.from(updatedMap.entries()))
+      setMap(updatedMap)
+      setModalIsOpen(false)
     }
   }
 
@@ -40,12 +40,11 @@ export default function Main(props) {
           <Modal.Content>
             <QrReader
               onResult={(result, error) => {
-                // console.log("Result: " + result)
                 if (result != undefined) {
-                  storeLetter(result?.text);
+                  storeLetter(result?.text)
                 }
                 if (!error) {
-                  console.info(error);
+                  console.info(error)
                 }
               }}
 

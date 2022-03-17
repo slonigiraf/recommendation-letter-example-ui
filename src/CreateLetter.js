@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import { Form, Input, TextArea, Grid, Button, Modal } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
-import QRCode from 'qrcode.react';
+import QRCode from 'qrcode.react'
 import { web3FromSource } from '@polkadot/extension-dapp'
-import { sign, getPublicDataToSignByGuarantee, getPrivateDataToSignByGuarantee } from './helpers.mjs';
-import { hexToU8a, u8aToHex } from '@polkadot/util';
-import { getIPFSContentID } from './helpers.mjs';
+import { sign, getPublicDataToSignByGuarantee, getPrivateDataToSignByGuarantee } from './helpers.mjs'
+import { hexToU8a, u8aToHex } from '@polkadot/util'
+import { getIPFSContentID } from './helpers.mjs'
 
 export default function Main(props) {
   const { currentAccount } = useSubstrateState()
-  const [letterInfo, setLetterInfo] = useState('');
+  const [letterInfo, setLetterInfo] = useState('')
   const [formState, setFormState] = useState({ text: '', workerPublicKeyHex: '', amount: 0 })
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const onChange = (_, data) =>
     setFormState(prev => ({ ...prev, [data.state]: data.value }))
@@ -32,12 +32,12 @@ export default function Main(props) {
 
   const getLetterInfo = async () => {
     // skill_ipfs_hash , insurance_id , teach_address , stud_address , amount , teach_sign_1 , teach_sign_2
-    let result = [];
-    const textHash = await getIPFSContentID(props.ipfs, text);
-    result.push(textHash);
+    let result = []
+    const textHash = await getIPFSContentID(props.ipfs, text)
+    result.push(textHash)
     //
-    const letterId = getLetterId();
-    result.push(letterId);
+    const letterId = getLetterId()
+    result.push(letterId)
     //
     const [guarantee,] = await getFromAcct()
     const guaranteeU8 = guarantee.publicKey
@@ -47,19 +47,19 @@ export default function Main(props) {
     const workerPublicKeyU8 = hexToU8a(workerPublicKeyHex)
     result.push(workerPublicKeyHex)
     //
-    const amountValue = parseInt(amount, 10);
-    result.push(amountValue);
+    const amountValue = parseInt(amount, 10)
+    result.push(amountValue)
     //
     const privateData = getPrivateDataToSignByGuarantee(textHash, letterId, guaranteeU8, workerPublicKeyU8, amountValue)
     const guaranteeSignOverPrivateData = u8aToHex(sign(guarantee, privateData))
-    result.push(guaranteeSignOverPrivateData);
+    result.push(guaranteeSignOverPrivateData)
     //
 
     const reciept = getPublicDataToSignByGuarantee(letterId, guaranteeU8, workerPublicKeyU8, amountValue)
     const guaranteeSignOverReceipt = u8aToHex(sign(guarantee, reciept))
     
-    result.push(guaranteeSignOverReceipt);
-    return result.join(",");
+    result.push(guaranteeSignOverReceipt)
+    return result.join(",")
   }
 
   const getFromAcct = async () => {
@@ -79,10 +79,10 @@ export default function Main(props) {
   }
 
   const getLetterId = () => {
-    const usedId = parseInt(window.localStorage.getItem('letterId')) || 0;
-    const letterId = 1 + usedId;
-    window.localStorage.setItem('letterId', letterId);
-    return letterId;
+    const usedId = parseInt(window.localStorage.getItem('letterId')) || 0
+    const letterId = 1 + usedId
+    window.localStorage.setItem('letterId', letterId)
+    return letterId
   }
 
   const showQR = async () => {
@@ -144,7 +144,7 @@ export default function Main(props) {
             </Modal.Actions>
           </Modal>
           <Button onClick={() => {
-              showQR();
+              showQR()
             }}>Create</Button>
         </Form.Field>
       </Form>

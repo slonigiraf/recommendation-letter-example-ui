@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Form, Input, Grid, Button, List, Label } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
-import QRCode from 'qrcode.react';
+import QRCode from 'qrcode.react'
 import { web3FromSource } from '@polkadot/extension-dapp'
-import { sign, getDataToSignByWorker } from './helpers.mjs';
-import { hexToU8a, u8aToHex } from '@polkadot/util';
+import { sign, getDataToSignByWorker } from './helpers.mjs'
+import { hexToU8a, u8aToHex } from '@polkadot/util'
 
 
 export default function Main(props) {
@@ -34,16 +34,16 @@ export default function Main(props) {
   })
 
   const getLetterInfo = async () => {
-    const [worker,] = await getFromAcct();
+    const [worker,] = await getFromAcct()
 
     let letterInsurance = getDataToSignByWorker(letterIdValue, hexToU8a(guaranteeAddress),
       hexToU8a(workerAddress), amountValue, hexToU8a(guaranteeSignOverReceipt), hexToU8a(employerPublicKeyHex))
 
-    const workerSignOverInsurance = u8aToHex(sign(worker, letterInsurance));
+    const workerSignOverInsurance = u8aToHex(sign(worker, letterInsurance))
     //
     const result = [textHash, letterIdValue, guaranteeAddress,
       workerAddress, amountValue, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance]
-    return result.join(",");
+    return result.join(",")
   }
 
   const getFromAcct = async () => {
@@ -63,14 +63,14 @@ export default function Main(props) {
   }
 
   const showQR = async () => {
-    const data = await getLetterInfo();
-    setStatus(true);
-    setFormState({ ...formState, letterInfo: data });
+    const data = await getLetterInfo()
+    setStatus(true)
+    setFormState({ ...formState, letterInfo: data })
   }
 
   const qrPart = status ? <Form.Field>
     <QRCode value={letterInfo} size="160" />
-  </Form.Field> : "";
+  </Form.Field> : ""
 
 
 
@@ -103,7 +103,7 @@ export default function Main(props) {
           <Button
             setStatus={setStatus}
             onClick={() => {
-              showQR();
+              showQR()
             }}
           >Sign</Button>
         </Form.Field>

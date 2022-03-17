@@ -1,11 +1,11 @@
 import { Grid, Button, Modal } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
 import SignLetterUseRight from './SignLetterUseRight'
-import { getIPFSDataFromContentID } from './helpers.mjs';
+import { getIPFSDataFromContentID } from './helpers.mjs'
 
 export default function Main(props) {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [textHash, , , , , ,] = props.letter.split(",");
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [textHash, , , , , ,] = props.letter.split(",")
   const [text, setText] = useState(textHash)
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function Main(props) {
       }
     }
     fetchData()
-  }, [props.ipfs, textHash, text]);
+  }, [props.ipfs, textHash, text])
 
   return (
     <Grid.Row>

@@ -7,7 +7,7 @@ import { u8aToHex } from '@polkadot/util'
 
 export default function Main(props) {
   const [cid, letterId, guaranteeHex,
-    workerHex, amount, , guaranteeSignatureOverReceiptHex, workerSignatureHex] = props.insurance.split(",");
+    workerHex, amount, , guaranteeSignatureOverReceiptHex, workerSignatureHex] = props.insurance.split(",")
  
   const { currentAccount } = useSubstrateState()
   const { keyring } = useSubstrateState()
@@ -27,9 +27,9 @@ export default function Main(props) {
   })
 
   const markUsedInsurance = cid => {
-    const updatedSet = localStorage.used ? new Set(JSON.parse(localStorage.used)) : new Set();
-    updatedSet.add(cid);
-    localStorage.used = JSON.stringify(Array.from(updatedSet));
+    const updatedSet = localStorage.used ? new Set(JSON.parse(localStorage.used)) : new Set()
+    updatedSet.add(cid)
+    localStorage.used = JSON.stringify(Array.from(updatedSet))
   }
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function Main(props) {
       setEmployerHex(u8aToHex(employer.publicKey))
     }
     fetchData()
-  }, []);
+  }, [])
 
   const processTransactionResult = result => {
     markUsedInsurance(cid)

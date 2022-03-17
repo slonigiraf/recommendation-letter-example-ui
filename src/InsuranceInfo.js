@@ -1,12 +1,12 @@
 import { Grid, Button, Modal } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
 import UseInsurance from './UseInsurance'
-import { getIPFSDataFromContentID } from './helpers.mjs';
+import { getIPFSDataFromContentID } from './helpers.mjs'
 
 export default function Main(props) {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [textHash, , , , , , ,] = props.insurance.split(",");
-  const updatedSet = localStorage.used ? new Set(JSON.parse(localStorage.used)) : new Set();
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [textHash, , , , , , ,] = props.insurance.split(",")
+  const updatedSet = localStorage.used ? new Set(JSON.parse(localStorage.used)) : new Set()
 
   const [text, setText] = useState(textHash)
 
@@ -26,7 +26,7 @@ export default function Main(props) {
       }
     }
     fetchData()
-  }, [props.ipfs, textHash, text]);
+  }, [props.ipfs, textHash, text])
 
   return (
     <Grid.Row>

@@ -27,7 +27,7 @@ function Main() {
   const [tabIndex, setTabIndex] = useState(0)
   useEffect(() => {
     async function fetchData() {
-      let node = ipfs;
+      let node = ipfs
       if (!ipfs) {
         console.log('Creating IPFS node...')
         node = await create({
@@ -38,7 +38,7 @@ function Main() {
       }
     }
     fetchData()
-  }, [ipfs]);
+  }, [ipfs])
 
   const loader = text => (
     <Dimmer active>

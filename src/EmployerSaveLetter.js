@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import { Grid, Button, Modal, GridRow } from 'semantic-ui-react'
-import { QrReader } from 'react-qr-reader';
+import { QrReader } from 'react-qr-reader'
 import InsurancesList from './InsurancesList'
 
 export default function Main(props) {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [map, setMap] = useState(localStorage.insurances ? new Map(JSON.parse(localStorage.insurances)) : new Map());
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [map, setMap] = useState(localStorage.insurances ? new Map(JSON.parse(localStorage.insurances)) : new Map())
 
   const storeLetter = data => {
-    let dataArray = data.split(",");
+    let dataArray = data.split(",")
     if (dataArray.length === 8) {
-      const updatedMap = localStorage.insurances ? new Map(JSON.parse(localStorage.insurances)) : new Map();
-      updatedMap.set(dataArray[0], data);
-      localStorage.insurances = JSON.stringify(Array.from(updatedMap.entries()));
-      setMap(updatedMap);
-      setModalIsOpen(false);
+      const updatedMap = localStorage.insurances ? new Map(JSON.parse(localStorage.insurances)) : new Map()
+      updatedMap.set(dataArray[0], data)
+      localStorage.insurances = JSON.stringify(Array.from(updatedMap.entries()))
+      setMap(updatedMap)
+      setModalIsOpen(false)
     }
   }
 
@@ -40,10 +40,10 @@ export default function Main(props) {
               onResult={(result, error) => {
                 // console.log("Result: " + result)
                 if (result != undefined) {
-                  storeLetter(result?.text);
+                  storeLetter(result?.text)
                 }
                 if (!error) {
-                  console.info(error);
+                  console.info(error)
                 }
               }}
             />

@@ -8,5 +8,5 @@ export default function Main(props) {
     {props.insurances.map((insurance, index) => (
         <List.Item><List.Content><List.Description as='a'><InsuranceInfo key={index} insurance={insurance} ipfs={props.ipfs} /></List.Description></List.Content></List.Item>
     ))}
-    </List>);
+    </List>)
 }

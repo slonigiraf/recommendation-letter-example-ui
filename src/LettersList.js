@@ -8,5 +8,5 @@ export default function Main(props) {
       {props.letters.map((letter, index) => (
         <List.Item><List.Content><List.Description as='a'><LetterInfo key={index} letter={letter} ipfs={props.ipfs} /></List.Description></List.Content></List.Item>
       ))}
-    </List>);
+    </List>)
 }
