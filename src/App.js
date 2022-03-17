@@ -24,8 +24,11 @@ import { create } from 'ipfs-core'
 function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState()
   const [ipfs, setIpfs] = useState(null)
-  useEffect(async () => {
-    getIPFSNode()
+  useEffect(() => {
+    async function fetchData() {
+      getIPFSNode()
+    }
+    fetchData()
   }, []);
 
   const getIPFSNode = async () => {
@@ -113,7 +116,7 @@ function Main() {
       </Sticky>
       <Container>
         <Grid stackable columns="equal">
-        <Grid.Row><h1>Recommendation letters</h1></Grid.Row>
+          <Grid.Row><h1>Recommendation letters</h1></Grid.Row>
           <Grid.Row>
             <RoleSelector />
           </Grid.Row>
