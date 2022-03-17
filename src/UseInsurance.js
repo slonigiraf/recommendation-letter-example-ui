@@ -8,9 +8,7 @@ import { u8aToHex } from '@polkadot/util'
 export default function Main(props) {
   const [cid, letterId, guaranteeHex,
     workerHex, amount, , guaranteeSignatureOverReceiptHex, workerSignatureHex] = props.insurance.split(",");
-  // console.log(textHash, letterId, guaranteeAddress,
-  //   workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance);
-
+ 
   const { currentAccount } = useSubstrateState()
   const { keyring } = useSubstrateState()
   
