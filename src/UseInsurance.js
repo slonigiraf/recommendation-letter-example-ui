@@ -6,7 +6,7 @@ import { TxButton } from './substrate-lib/components'
 import { u8aToHex } from '@polkadot/util'
 
 export default function Main(props) {
-  const [, letterId, guaranteeAddress,
+  const [cid, letterId, guaranteeAddress,
     workerAddress, amount, , guaranteeSignOverReceipt, workerSignOverInsurance] = props.insurance.split(",");
   // console.log(textHash, letterId, guaranteeAddress,
   //   workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance);
@@ -34,9 +34,14 @@ export default function Main(props) {
     })
   })
 
+  const markUsedInsurance = cid => {
+    const updatedSet = localStorage.used ? new Set(JSON.parse(localStorage.used)) : new Set();
+    updatedSet.add(cid);
+    localStorage.used = JSON.stringify(Array.from(updatedSet));
+  }
+
   useEffect(async () => {
     const [employer,] = await getFromAcct()
-
     setInsurance_id(letterId)
     setGuaranteeHex(guaranteeAddress)
     setWorkerHex(workerAddress)
@@ -44,6 +49,11 @@ export default function Main(props) {
     setGuaranteeSignatureHex(guaranteeSignOverReceipt)
     setWorkerSignatureHex(workerSignOverInsurance)
   }, []);
+
+  const processTransactionResult = result => {
+    markUsedInsurance(cid)
+    setStatus(result)
+  }
 
   const getFromAcct = async () => {
     const {
@@ -79,7 +89,7 @@ export default function Main(props) {
           <TxButton
             label="Get a reimbursement"
             type="SIGNED-TX"
-            setStatus={setStatus}
+            setStatus={processTransactionResult}
             attrs={{
               palletRpc: 'insurances',
               callable: 'reimburse',

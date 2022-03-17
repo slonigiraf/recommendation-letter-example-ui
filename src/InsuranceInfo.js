@@ -5,8 +5,12 @@ import UseInsurance from './UseInsurance'
 export default function Main(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [textHash, , , , , , ,] = props.insurance.split(",");
+  const updatedSet = localStorage.used ? new Set(JSON.parse(localStorage.used)) : new Set();
 
   const [text, setText] = useState(textHash)
+
+  const wasUsed = updatedSet.has(textHash)? "Canceled: " : ""
+
   useEffect(async () => {
     if (text === textHash) {
       try {
@@ -28,7 +32,7 @@ export default function Main(props) {
         size="mini"
         color="blue"
         onClick={() => setModalIsOpen(true)}
-      >{text}</Button>
+      >{wasUsed + text}</Button>
       <Modal
         size={"tiny"}
         dimmer={"inverted"}
