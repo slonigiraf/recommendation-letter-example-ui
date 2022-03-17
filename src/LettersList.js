@@ -6,7 +6,7 @@ export default function Main(props) {
   return (
     <List divided relaxed>
       {props.letters.map((letter, index) => (
-        <List.Item><List.Content><List.Description as='a'><LetterInfo key={index} letter={letter} getIPFSDataFromContentID={(cid) => props.getIPFSDataFromContentID(cid)} /></List.Description></List.Content></List.Item>
+        <List.Item><List.Content><List.Description as='a'><LetterInfo key={index} letter={letter} ipfs={props.ipfs} /></List.Description></List.Content></List.Item>
       ))}
     </List>);
 }

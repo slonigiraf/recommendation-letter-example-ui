@@ -44,21 +44,6 @@ function Main() {
     return node
   }
 
-  const getIPFSContentID = async (content) => {
-    let node = await getIPFSNode()
-    const file = await node.add(content)
-    return file.cid
-  }
-
-  const getIPFSDataFromContentID = async (cid) => {
-    const text = []
-    const node = await getIPFSNode()
-    for await (const chunk of node.cat(cid)) {
-      text.push(chunk)
-    }
-    return text.toString()
-  }
-
   const loader = text => (
     <Dimmer active>
       <Loader size="small">{text}</Loader>
@@ -93,15 +78,15 @@ function Main() {
   const panes = [
     {
       menuItem: 'Guarantee',
-      render: () => <Tab.Pane><CreateLetter getIPFSContentID={(content) => getIPFSContentID(content)} /></Tab.Pane>,
+      render: () => <Tab.Pane><CreateLetter ipfs={ipfs} /></Tab.Pane>,
     },
     {
       menuItem: 'Worker',
-      render: () => <Tab.Pane><WorkerSaveLetter getIPFSDataFromContentID={(cid) => getIPFSDataFromContentID(cid)} /></Tab.Pane>,
+      render: () => <Tab.Pane><WorkerSaveLetter ipfs={ipfs} /></Tab.Pane>,
     },
     {
       menuItem: 'Employer',
-      render: () => <Tab.Pane><EmployerSaveLetter getIPFSDataFromContentID={(cid) => getIPFSDataFromContentID(cid)} /></Tab.Pane>,
+      render: () => <Tab.Pane><EmployerSaveLetter ipfs={ipfs} /></Tab.Pane>,
     },
   ]
 

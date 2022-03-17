@@ -1,6 +1,7 @@
 import { Grid, Button, Modal } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
 import UseInsurance from './UseInsurance'
+import { getIPFSDataFromContentID } from './helpers.mjs';
 
 export default function Main(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function Main(props) {
     async function fetchData() {
       if (text === textHash) {
         try {
-          const content = await props.getIPFSDataFromContentID(textHash)
+          const content = await getIPFSDataFromContentID(props.ipfs, textHash)
           setText(content)
         }
         catch (e) {

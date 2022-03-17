@@ -22,7 +22,7 @@ export default function Main(props) {
     <Grid.Column width={8}>
       <h2>Worker's recommendation letters</h2>
       <Grid.Row>
-        <InsurancesList insurances={Array.from(map.values())} getIPFSDataFromContentID={(cid) => props.getIPFSDataFromContentID(cid)} />
+        <InsurancesList ipfs={props.ipfs} insurances={Array.from(map.values())} />
       </Grid.Row>
       <GridRow>&nbsp;</GridRow>
       <Grid.Row>

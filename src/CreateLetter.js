@@ -5,6 +5,7 @@ import QRCode from 'qrcode.react';
 import { web3FromSource } from '@polkadot/extension-dapp'
 import { sign, getPublicDataToSignByGuarantee, getPrivateDataToSignByGuarantee } from './helpers.mjs';
 import { hexToU8a, u8aToHex } from '@polkadot/util';
+import { getIPFSContentID } from './helpers.mjs';
 
 export default function Main(props) {
   const { currentAccount } = useSubstrateState()
@@ -32,7 +33,7 @@ export default function Main(props) {
   const getLetterInfo = async () => {
     // skill_ipfs_hash , insurance_id , teach_address , stud_address , amount , teach_sign_1 , teach_sign_2
     let result = [];
-    const textHash = await props.getIPFSContentID(text);
+    const textHash = await getIPFSContentID(props.ipfs, text);
     result.push(textHash);
     //
     const letterId = getLetterId();
