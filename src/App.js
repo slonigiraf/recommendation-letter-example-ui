@@ -24,6 +24,7 @@ import { create } from 'ipfs-core'
 function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState()
   const [ipfs, setIpfs] = useState(null)
+  const [tabIndex, setTabIndex] = useState(0)
   useEffect(() => {
     async function fetchData() {
       let node = ipfs;
@@ -84,9 +85,9 @@ function Main() {
       render: () => <Tab.Pane><EmployerSaveLetter ipfs={ipfs} /></Tab.Pane>,
     },
   ]
-
+  const handleChange = (e, data) => setTabIndex(data.activeIndex)
   const RoleSelector = () => (
-    <Tab panes={panes} />
+    <Tab panes={panes} defaultActiveIndex={tabIndex} onTabChange={handleChange}/>
   )
 
   return (
