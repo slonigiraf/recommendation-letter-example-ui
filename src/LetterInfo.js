@@ -15,7 +15,7 @@ export default function Main(props) {
 
   useEffect(() => {
     async function fetchData() {
-      if (text === textHash) {
+      if (props.ipfs !==null && text === textHash) {
         try {
           const content = await getIPFSDataFromContentID(props.ipfs, textHash)
           setText(content)
