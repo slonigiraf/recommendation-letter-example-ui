@@ -9,19 +9,22 @@ export default function Main(props) {
 
   const [text, setText] = useState(textHash)
 
-  const wasUsed = updatedSet.has(textHash)? "Canceled: " : ""
+  const wasUsed = updatedSet.has(textHash) ? "Canceled: " : ""
 
-  useEffect(async () => {
-    if (text === textHash) {
-      try {
-        const content = await props.getIPFSDataFromContentID(textHash)
-        setText(content)
-      }
-      catch (e) {
-        setText(textHash+" (loading...)")
-        console.log(e)
+  useEffect(() => {
+    async function fetchData() {
+      if (text === textHash) {
+        try {
+          const content = await props.getIPFSDataFromContentID(textHash)
+          setText(content)
+        }
+        catch (e) {
+          setText(textHash + " (loading...)")
+          console.log(e)
+        }
       }
     }
+    fetchData()
   }, []);
 
   return (

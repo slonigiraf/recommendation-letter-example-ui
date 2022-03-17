@@ -40,7 +40,8 @@ export default function Main(props) {
     localStorage.used = JSON.stringify(Array.from(updatedSet));
   }
 
-  useEffect(async () => {
+  useEffect( () => {
+    async function fetchData() {
     const [employer,] = await getFromAcct()
     setInsurance_id(letterId)
     setGuaranteeHex(guaranteeAddress)
@@ -48,6 +49,8 @@ export default function Main(props) {
     setEmployerHex(u8aToHex(employer.publicKey))
     setGuaranteeSignatureHex(guaranteeSignOverReceipt)
     setWorkerSignatureHex(workerSignOverInsurance)
+    }
+    fetchData()
   }, []);
 
   const processTransactionResult = result => {

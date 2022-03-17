@@ -6,23 +6,26 @@ export default function Main(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
 
-  const [textHash, , , , , , ] = props.letter.split(",");
+  const [textHash, , , , , ,] = props.letter.split(",");
   // console.log(textHash, letterId, guaranteeAddress,
   //   workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt);
 
   const [text, setText] = useState(textHash)
 
-  useEffect(async () => {
-    if (text === textHash) {
-      try {
-        const content = await props.getIPFSDataFromContentID(textHash)
-        setText(content)
-      }
-      catch (e) {
-        setText(textHash+" (loading...)")
-        console.log(e)
+  useEffect(() => {
+    async function fetchData() {
+      if (text === textHash) {
+        try {
+          const content = await props.getIPFSDataFromContentID(textHash)
+          setText(content)
+        }
+        catch (e) {
+          setText(textHash + " (loading...)")
+          console.log(e)
+        }
       }
     }
+    fetchData()
   }, []);
 
   return (
