@@ -8,10 +8,10 @@ import { u8aToHex } from '@polkadot/util'
 export default function Main(props) {
   const [cid, letterId, guaranteeHex,
     workerHex, amount, , guaranteeSignatureOverReceiptHex, workerSignatureHex] = props.insurance.split(",")
- 
+
   const { currentAccount } = useSubstrateState()
   const { keyring } = useSubstrateState()
-  
+
   const [status, setStatus] = useState(null)
   const [employerHex, setEmployerHex] = useState('')
 
@@ -61,9 +61,37 @@ export default function Main(props) {
     return [address, { signer: injector.signer }]
   }
 
+  const txButton = <Form>
+    <Form.Field style={{ textAlign: 'center' }}>
+      <TxButton
+        label="Get a reimbursement"
+        type="SIGNED-TX"
+        setStatus={processTransactionResult}
+        attrs={{
+          palletRpc: 'insurances',
+          callable: 'reimburse',
+          inputParams: [letterId,
+            guaranteeHex,
+            workerHex,
+            employerHex,
+            amount,
+            guaranteeSignatureOverReceiptHex,
+            workerSignatureHex],
+          paramFields: [true, true, true, true, true, true, true],
+        }}
+      />
+    </Form.Field>
+    <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+  </Form>
+
+  const usedInfo = <List.Item>
+    <Label horizontal>Was invalidated</Label>
+  </List.Item>
+
   return (
     <Grid.Column width={8}>
       <List divided selection>
+        {props.wasUsed && usedInfo}
         <List.Item>
           <Label horizontal>Text</Label>
           {props.text}
@@ -72,30 +100,7 @@ export default function Main(props) {
           <Label as='a' tag>{workerHex}</Label>
         </List.Item>
       </List>
-      <Form>
-
-        <Form.Field style={{ textAlign: 'center' }}>
-
-          <TxButton
-            label="Get a reimbursement"
-            type="SIGNED-TX"
-            setStatus={processTransactionResult}
-            attrs={{
-              palletRpc: 'insurances',
-              callable: 'reimburse',
-              inputParams: [letterId,
-                guaranteeHex,
-                workerHex,
-                employerHex,
-                amount,
-                guaranteeSignatureOverReceiptHex,
-                workerSignatureHex],
-              paramFields: [true, true, true, true, true, true, true],
-            }}
-          />
-        </Form.Field>
-        <div style={{ overflowWrap: 'break-word' }}>{status}</div>
-      </Form>
+      {!props.wasUsed && txButton}
     </Grid.Column>
   )
 }

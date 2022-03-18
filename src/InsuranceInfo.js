@@ -46,7 +46,7 @@ export default function Main(props) {
       >
         <Modal.Header>Penalize guarantee</Modal.Header>
         <Modal.Content>
-          <UseInsurance text={text} insurance={props.insurance} />
+          <UseInsurance text={text} insurance={props.insurance} wasUsed={updatedSet.has(textHash)}/>
         </Modal.Content>
         <Modal.Actions>
           <Button color='black' onClick={() => setModalIsOpen(false)}>
