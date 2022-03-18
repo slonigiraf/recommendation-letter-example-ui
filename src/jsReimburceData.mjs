@@ -2,7 +2,7 @@
 import { ApiPromise } from '@polkadot/api'
 import { Keyring } from '@polkadot/keyring'
 import { u8aToHex } from '@polkadot/util'
-import { sign, getPublicDataToSignByGuarantee, getDataToSignByWorker } from './helpers.mjs'
+import { sign, getPublicDataToSignByReferee, getDataToSignByWorker } from './helpers.mjs'
 
 async function main() {
   const insurance_id = 1
@@ -10,13 +10,13 @@ async function main() {
   //
   const api = await ApiPromise.create()
   const keyring = new Keyring({ type: 'sr25519' })
-  const guarantee = keyring.addFromUri('//Alice')
+  const referee = keyring.addFromUri('//Alice')
   const worker = keyring.addFromUri('//Bob')
   const employer = keyring.addFromUri('//Bob//stash')
 
-  const guaranteeU8 = guarantee.publicKey
-  const guaranteeHex = u8aToHex(guarantee.publicKey)
-  console.log("guaranteeHex: ", guaranteeHex)
+  const refereeU8 = referee.publicKey
+  const refereeHex = u8aToHex(referee.publicKey)
+  console.log("refereeHex: ", refereeHex)
 
   const workerU8 = worker.publicKey
   const workerHex = u8aToHex(worker.publicKey)
@@ -26,23 +26,23 @@ async function main() {
   const employerHex = u8aToHex(employer.publicKey)
   console.log("employerHex: ", employerHex)
   
-  const dataToBeSignedByGuarantee = getPublicDataToSignByGuarantee(insurance_id, guaranteeU8, workerU8, amount)
-  console.log("dataToBeSignedByGuarantee: ", dataToBeSignedByGuarantee)
+  const dataToBeSignedByReferee = getPublicDataToSignByReferee(insurance_id, refereeU8, workerU8, amount)
+  console.log("dataToBeSignedByReferee: ", dataToBeSignedByReferee)
 
-  const guaranteeSignatureU8 = sign(guarantee, dataToBeSignedByGuarantee)
-  const guaranteeSignatureHex = u8aToHex(guaranteeSignatureU8)
-  console.log("guaranteeSignatureHex: ", guaranteeSignatureHex)
-  const dataToSignByWorker = getDataToSignByWorker(insurance_id, guaranteeU8, workerU8, amount, guaranteeSignatureU8, employerU8)
+  const refereeSignatureU8 = sign(referee, dataToBeSignedByReferee)
+  const refereeSignatureHex = u8aToHex(refereeSignatureU8)
+  console.log("refereeSignatureHex: ", refereeSignatureHex)
+  const dataToSignByWorker = getDataToSignByWorker(insurance_id, refereeU8, workerU8, amount, refereeSignatureU8, employerU8)
   const workerSignatureU8 = sign(worker, dataToSignByWorker)
   const workerSignatureHex = u8aToHex(workerSignatureU8)
 
   // Create a transaction
   const reimburse = api.tx.insurances.reimburse(insurance_id,
-    guaranteeHex,
+    refereeHex,
     workerHex,
     employerHex,
     amount,
-    guaranteeSignatureHex,
+    refereeSignatureHex,
     workerSignatureHex)
 
   // Sign and send the transaction using our account

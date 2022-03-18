@@ -44,7 +44,7 @@ export default function Main(props) {
         onOpen={() => setModalIsOpen(true)}
         open={modalIsOpen}
       >
-        <Modal.Header>Penalize guarantee</Modal.Header>
+        <Modal.Header>Penalize referee</Modal.Header>
         <Modal.Content>
           <UseInsurance text={text} insurance={props.insurance} wasUsed={updatedSet.has(textHash)}/>
         </Modal.Content>

@@ -3,7 +3,7 @@ import { Form, Input, TextArea, Grid, Button, Modal } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import QRCode from 'qrcode.react'
 import { web3FromSource } from '@polkadot/extension-dapp'
-import { sign, getPublicDataToSignByGuarantee, getPrivateDataToSignByGuarantee } from './helpers.mjs'
+import { sign, getPublicDataToSignByReferee, getPrivateDataToSignByReferee } from './helpers.mjs'
 import { hexToU8a, u8aToHex } from '@polkadot/util'
 import { getIPFSContentID } from './helpers.mjs'
 
@@ -39,10 +39,10 @@ export default function Main(props) {
     const letterId = getLetterId()
     result.push(letterId)
     //
-    const [guarantee,] = await getFromAcct()
-    const guaranteeU8 = guarantee.publicKey
-    const guaranteePublicKeyHex = u8aToHex(guaranteeU8)
-    result.push(guaranteePublicKeyHex)
+    const [referee,] = await getFromAcct()
+    const refereeU8 = referee.publicKey
+    const refereePublicKeyHex = u8aToHex(refereeU8)
+    result.push(refereePublicKeyHex)
     //
     const workerPublicKeyU8 = hexToU8a(workerPublicKeyHex)
     result.push(workerPublicKeyHex)
@@ -50,15 +50,15 @@ export default function Main(props) {
     const amountValue = parseInt(amount, 10)
     result.push(amountValue)
     //
-    const privateData = getPrivateDataToSignByGuarantee(textHash, letterId, guaranteeU8, workerPublicKeyU8, amountValue)
-    const guaranteeSignOverPrivateData = u8aToHex(sign(guarantee, privateData))
-    result.push(guaranteeSignOverPrivateData)
+    const privateData = getPrivateDataToSignByReferee(textHash, letterId, refereeU8, workerPublicKeyU8, amountValue)
+    const refereeSignOverPrivateData = u8aToHex(sign(referee, privateData))
+    result.push(refereeSignOverPrivateData)
     //
 
-    const reciept = getPublicDataToSignByGuarantee(letterId, guaranteeU8, workerPublicKeyU8, amountValue)
-    const guaranteeSignOverReceipt = u8aToHex(sign(guarantee, reciept))
+    const reciept = getPublicDataToSignByReferee(letterId, refereeU8, workerPublicKeyU8, amountValue)
+    const refereeSignOverReceipt = u8aToHex(sign(referee, reciept))
     
-    result.push(guaranteeSignOverReceipt)
+    result.push(refereeSignOverReceipt)
     return result.join(",")
   }
 

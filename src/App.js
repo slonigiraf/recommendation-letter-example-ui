@@ -73,7 +73,7 @@ function Main() {
 
   const panes = [
     {
-      menuItem: 'Guarantee',
+      menuItem: 'Referee',
       render: () => <Tab.Pane><CreateLetter ipfs={ipfs} /></Tab.Pane>,
     },
     {

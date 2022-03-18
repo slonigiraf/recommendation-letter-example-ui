@@ -6,8 +6,8 @@ import { TxButton } from './substrate-lib/components'
 import { u8aToHex } from '@polkadot/util'
 
 export default function Main(props) {
-  const [cid, letterId, guaranteeHex,
-    workerHex, amount, , guaranteeSignatureOverReceiptHex, workerSignatureHex] = props.insurance.split(",")
+  const [cid, letterId, refereeHex,
+    workerHex, amount, , refereeSignatureOverReceiptHex, workerSignatureHex] = props.insurance.split(",")
 
   const { currentAccount } = useSubstrateState()
   const { keyring } = useSubstrateState()
@@ -68,14 +68,14 @@ export default function Main(props) {
         type="SIGNED-TX"
         setStatus={processTransactionResult}
         attrs={{
-          palletRpc: 'insurances',
+          palletRpc: 'letters',
           callable: 'reimburse',
           inputParams: [letterId,
-            guaranteeHex,
+            refereeHex,
             workerHex,
             employerHex,
             amount,
-            guaranteeSignatureOverReceiptHex,
+            refereeSignatureOverReceiptHex,
             workerSignatureHex],
           paramFields: [true, true, true, true, true, true, true],
         }}

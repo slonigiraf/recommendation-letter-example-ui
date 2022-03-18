@@ -8,8 +8,8 @@ import { hexToU8a, u8aToHex } from '@polkadot/util'
 
 
 export default function Main(props) {
-  const [textHash, letterId, guaranteeAddress,
-    workerAddress, amount, guaranteeSignOverPrivateData, guaranteeSignOverReceipt] = props.letter.split(",")
+  const [textHash, letterId, refereeAddress,
+    workerAddress, amount, refereeSignOverPrivateData, refereeSignOverReceipt] = props.letter.split(",")
   const letterIdValue = parseInt(letterId, 10)
   const amountValue = parseInt(amount, 10)
   const { currentAccount } = useSubstrateState()
@@ -36,13 +36,13 @@ export default function Main(props) {
   const getLetterInfo = async () => {
     const [worker,] = await getFromAcct()
 
-    let letterInsurance = getDataToSignByWorker(letterIdValue, hexToU8a(guaranteeAddress),
-      hexToU8a(workerAddress), amountValue, hexToU8a(guaranteeSignOverReceipt), hexToU8a(employerPublicKeyHex))
+    let letterInsurance = getDataToSignByWorker(letterIdValue, hexToU8a(refereeAddress),
+      hexToU8a(workerAddress), amountValue, hexToU8a(refereeSignOverReceipt), hexToU8a(employerPublicKeyHex))
 
     const workerSignOverInsurance = u8aToHex(sign(worker, letterInsurance))
     //
-    const result = [textHash, letterIdValue, guaranteeAddress,
-      workerAddress, amountValue, guaranteeSignOverPrivateData, guaranteeSignOverReceipt, workerSignOverInsurance]
+    const result = [textHash, letterIdValue, refereeAddress,
+      workerAddress, amountValue, refereeSignOverPrivateData, refereeSignOverReceipt, workerSignOverInsurance]
     return result.join(",")
   }
 

@@ -12,16 +12,16 @@ export function numberToU8ArrayOfLength(number, length) {
         return shortResult
     }
 }
-export function getPublicDataToSignByGuarantee(letterId, guaranteeU8, workerU8, amount) {
-    return new Uint8Array([...numberToU8ArrayOfLength(letterId, 4), ...guaranteeU8, ...workerU8, ...numberToU8ArrayOfLength(amount, 16)])
+export function getPublicDataToSignByReferee(letterId, refereeU8, workerU8, amount) {
+    return new Uint8Array([...numberToU8ArrayOfLength(letterId, 4), ...refereeU8, ...workerU8, ...numberToU8ArrayOfLength(amount, 16)])
 }
 
-export function getPrivateDataToSignByGuarantee(textHash, letterId, guaranteeU8, workerU8, amount) {
-    return new Uint8Array([...stringToU8a(textHash), ...numberToU8ArrayOfLength(letterId, 4), ...guaranteeU8, ...workerU8, ...numberToU8ArrayOfLength(amount, 16)])
+export function getPrivateDataToSignByReferee(textHash, letterId, refereeU8, workerU8, amount) {
+    return new Uint8Array([...stringToU8a(textHash), ...numberToU8ArrayOfLength(letterId, 4), ...refereeU8, ...workerU8, ...numberToU8ArrayOfLength(amount, 16)])
 }
 
-export function getDataToSignByWorker(letterId, guaranteeU8, workerU8, amount, guaranteeSignatureU8, employerU8) {
-    return new Uint8Array([...numberToU8ArrayOfLength(letterId, 4), ...guaranteeU8, ...workerU8, ...numberToU8ArrayOfLength(amount, 16), ...guaranteeSignatureU8, ...employerU8])
+export function getDataToSignByWorker(letterId, refereeU8, workerU8, amount, refereeSignatureU8, employerU8) {
+    return new Uint8Array([...numberToU8ArrayOfLength(letterId, 4), ...refereeU8, ...workerU8, ...numberToU8ArrayOfLength(amount, 16), ...refereeSignatureU8, ...employerU8])
 }
 
 export function sign(signer, data) {
