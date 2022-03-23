@@ -1,3 +1,4 @@
+// Saves a QR code with information about recommendation letter created by CreateLetter.js component
 import React, { useState } from 'react'
 import { Grid, Button, Modal } from 'semantic-ui-react'
 import { QrReader } from 'react-qr-reader'

@@ -1,3 +1,4 @@
+// A component to visualize recommendation letter info to an employer
 import { Grid, Button, Modal } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
 import UseInsurance from './UseInsurance'

@@ -1,3 +1,4 @@
+// A component to visualize recommendation letter data for a worker
 import { Grid, Button, Modal } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
 import SignLetterUseRight from './SignLetterUseRight'

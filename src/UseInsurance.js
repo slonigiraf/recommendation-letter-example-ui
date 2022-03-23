@@ -1,3 +1,4 @@
+// A component to send a reimbursement transaction to a blockchain to penalize a gurantee for a wrong recommendation letter
 import React, { useState, useEffect } from 'react'
 import { Form, Grid, List, Label } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'

@@ -1,3 +1,4 @@
+// A component to visualize recommendation letter list for a worker
 import { List } from 'semantic-ui-react'
 import LetterInfo from './LetterInfo'
 import React from 'react'

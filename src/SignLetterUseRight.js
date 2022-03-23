@@ -1,3 +1,4 @@
+// A component where a worker can enable an employer to penalize a guarantee
 import React, { useState } from 'react'
 import { Form, Input, Grid, Button, List, Label } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'

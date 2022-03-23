@@ -1,3 +1,13 @@
+// Creates a QR code that contains information about recommendation letter
+// QR code consists of:
+// IPFS CID of letter text
+// letter id - an uniqie integer
+// referee public key in hex form
+// worker public key in hex form
+// amount tokens staked on a letter by referee
+// referee signature 1 over a byte array of: IPFS CID, letter id, referee public key in hex form, worker public key in hex form, amount tokens staked on a letter by referee
+// referee signature 2 over a byte array of the data same as above except IPFS CID
+
 import React, { useState } from 'react'
 import { Form, Input, TextArea, Grid, Button, Modal } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'

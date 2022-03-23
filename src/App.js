@@ -1,3 +1,5 @@
+// Example UI created for https://github.com/w3f/Grants-Program/blob/master/applications/slonigiraf.md
+// Basic skelleton of App was copied from https://github.com/substrate-developer-hub/substrate-front-end-template
 import React, { createRef, useState, useEffect } from 'react'
 import {
   Container,
@@ -25,6 +27,7 @@ function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState()
   const [ipfs, setIpfs] = useState(null)
   const [tabIndex, setTabIndex] = useState(0)
+  // Initilize an IPFS instance
   useEffect(() => {
     async function fetchData() {
       let node = ipfs
@@ -71,6 +74,7 @@ function Main() {
 
   const contextRef = createRef()
 
+  // Selection of user role
   const panes = [
     {
       menuItem: 'Referee',

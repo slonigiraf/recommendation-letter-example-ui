@@ -1,4 +1,5 @@
-// Import the API, Keyring and some utility functions
+// An example JS script to use a recommendation letter pallet from a blockchain
+// Run an example blockchain first: https://github.com/slonigiraf/recommendation-letter-example-node
 import { ApiPromise } from '@polkadot/api'
 import { Keyring } from '@polkadot/keyring'
 import { u8aToHex } from '@polkadot/util'

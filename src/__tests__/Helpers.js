@@ -1,6 +1,5 @@
-import { hexToU8a } from '@polkadot/util';
+// Tests for '../helpers.mjs'
 import { numberToU8ArrayOfLength, getPublicDataToSignByReferee, getDataToSignByWorker } from '../helpers.mjs';
-
 
 describe('numberToU8ArrayOfLength', () => {
   it('length is 4 (as Rust u32 conversion)', () => {
