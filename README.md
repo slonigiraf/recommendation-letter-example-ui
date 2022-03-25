@@ -87,14 +87,26 @@ and open `build/index.html` in your favorite browser.
 
 <table><tbody><tr><td><img alt="10 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/10.png?raw=true" width="500"></tr></td></tbody></table>
 
+- Have a look at account balances: the referee (ALICE), the worker (BOB) and the employer (BOB_STASH) all have the same balance of 1.1529 MUnit
+
 <table><tbody><tr><td><img alt="11 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/11.png?raw=true" width="500"></tr></td></tbody></table>
+
+- If the employer thinks that the recommendation was fake and wants to get a reimburcement from the referee than he taps on the letter and than pushes "Get a reimbursement" button
 
 <table><tbody><tr><td><img alt="12-1 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/12-1.png?raw=true" width="500"></tr></td></tbody></table>
 
+- The transaction goes to a blockchain
+
 <table><tbody><tr><td><img alt="12-2 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/12-2.png?raw=true" width="500"></tr></td></tbody></table>
+
+- And balances are updated: the worker (BOB) balance is the same and 0.001 MUnit transferes from the referee (ALICE) to the employer (BOB_STASH) as the result of reimbursement transaction
 
 <table><tbody><tr><td><img alt="13 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/13.png?raw=true" width="500"></tr></td></tbody></table>
 
+- The recommendation letter marks as "Canceled"
+
 <table><tbody><tr><td><img alt="14 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/14.png?raw=true" width="500"></tr></td></tbody></table>
+
+- And can't be used twice for penalization of the referee
 
 <table><tbody><tr><td><img alt="15 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/15.png?raw=true" width="500"></tr></td></tbody></table>
