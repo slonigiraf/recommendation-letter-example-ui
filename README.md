@@ -14,6 +14,12 @@ git clone https://github.com/slonigiraf/recommendation-letter-example-ui.git
 cd recommendation-letter-example-ui
 yarn install
 ```
+### Testing
+
+```bash
+cd recommendation-letter-example-ui
+yarn test
+```
 
 ### Usage
 
