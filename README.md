@@ -40,7 +40,7 @@ and open `build/index.html` in your favorite browser.
 - Type a text of recommendation letter, paste a public key of worker and amount of token to stake on the recommendation.
 - Click "Create" button.
 
-![1 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/1.png?raw=true)
+<img src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/1.png?raw=true" width="500" / >
 
 - Show the QR code to a worker (or take a photo/screenshot of it to show later, for example if you test this repo from a single computer you will need this QR code on the next step)
 
