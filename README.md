@@ -37,21 +37,21 @@ and open `build/index.html` in your favorite browser.
 
 #### As a referee
 
-- Select a referee account from account selector (right top corner). We selected ALICE.
-- Tap "Referee tab"
-- Type a text of recommendation letter, paste a public key of worker and amount of token to stake on the recommendation.
-- Click "Create" button.
+- Select a referee's account from the account selector (right top corner). We selected ALICE.
+- Tap the "Referee tab"
+- Type text of a recommendation letter, paste a public key of worker and an amount of token to stake on the recommendation.
+- Click the "Create" button.
 
 <table><tbody><tr><td><img alt="1 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/1.png?raw=true" width="500"></tr></td></tbody></table>
 
-- Show the QR code to a worker (or take a photo / screenshot of it to show later, for example if you test this repo from a single computer you will need this QR code on the next step)
+- Show the QR code to the worker (or take a photo / screenshot of the QR code to show later, for example, if you test this repo from a single computer you will need this QR code on the next step)
 
 <table><tbody><tr><td><img alt="2 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/2.png?raw=true" width="500"></tr></td></tbody></table>
 
 #### As a worker
 
-- Select a worker account from account selector (right top corner). We selected BOB.
-- Tap "Worker tab" and then "Add letter about me button"
+- Select a worker's account from the account selector (right top corner). We selected BOB.
+- Tap the "Worker tab" and then the "Add letter about me" button
 
 <table><tbody><tr><td><img alt="3 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/3.png?raw=true" width="500"></tr></td></tbody></table>
 
@@ -64,18 +64,18 @@ and open `build/index.html` in your favorite browser.
 <table><tbody><tr><td><img alt="5 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/5.png?raw=true" width="500"></tr></td></tbody></table>
 
 - Tap on the recommendation letter to show it to an employer
-- If the employer wants to re-examinate your skill mentioned in the letter paste employer public key and tap "Sign" button
+- If the employer wants to re-examine your skill mentioned in the letter, paste the employer's public key and tap the "Sign" button
 
 <table><tbody><tr><td><img alt="6 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/6.png?raw=true" width="500"></tr></td></tbody></table>
 
-- Show the QR code to the employer (or take a photo / screenshot of it to show later, for example if you test this repo from a single computer you will need this QR code on the next step)
+- Show the QR code to the employer (or take a photo / screenshot of it to show later, for example, if you test this repo from a single computer you will need this QR code on the next step)
 
 <table><tbody><tr><td><img alt="7 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/7.png?raw=true" width="500"></tr></td></tbody></table>
 
 #### As an employer
 
-- Select an employer account from account selector (right top corner). We selected BOB_STASH.
-- Tap "Employer tab" and then "Scan a letter about a worker" button
+- Select an employer account from the account selector (right top corner). We selected BOB_STASH.
+- Tap the "Employer tab" and then the "Scan a letter about a worker" button
 
 <table><tbody><tr><td><img alt="8 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/8.png?raw=true" width="500"></tr></td></tbody></table>
 
@@ -87,11 +87,11 @@ and open `build/index.html` in your favorite browser.
 
 <table><tbody><tr><td><img alt="10 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/10.png?raw=true" width="500"></tr></td></tbody></table>
 
-- Have a look at account balances: the referee (ALICE), the worker (BOB) and the employer (BOB_STASH) all have the same balance of 1.1529 MUnit
+- Have a look at account balances: the referee (ALICE) and the employer (BOB_STASH) all have the same balance of 1.1529 MUnit
 
 <table><tbody><tr><td><img alt="11 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/11.png?raw=true" width="500"></tr></td></tbody></table>
 
-- If the employer thinks that the recommendation was fake and wants to get a reimburcement from the referee than he taps on the letter and than pushes "Get a reimbursement" button
+- If the employer thinks that the recommendation was fake and wants to get a reimbursement from the referee then he taps on the letter and then pushes "Get a reimbursement" button
 
 <table><tbody><tr><td><img alt="12-1 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/12-1.png?raw=true" width="500"></tr></td></tbody></table>
 
@@ -99,11 +99,11 @@ and open `build/index.html` in your favorite browser.
 
 <table><tbody><tr><td><img alt="12-2 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/12-2.png?raw=true" width="500"></tr></td></tbody></table>
 
-- And balances are updated: the worker (BOB) balance is the same and 0.001 MUnit transferes from the referee (ALICE) to the employer (BOB_STASH) as the result of reimbursement transaction
+- Balances will be updated: 0.001 MUnit will be transferred from the referee (ALICE) to the employer (BOB_STASH) as the result of reimbursement transaction
 
 <table><tbody><tr><td><img alt="13 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/13.png?raw=true" width="500"></tr></td></tbody></table>
 
-- The recommendation letter marks as "Canceled"
+- After it the recommendation letter will be marked as "Canceled"
 
 <table><tbody><tr><td><img alt="14 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/14.png?raw=true" width="500"></tr></td></tbody></table>
 
