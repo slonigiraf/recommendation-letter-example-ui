@@ -31,3 +31,6 @@ yarn build
 ```
 
 and open `build/index.html` in your favorite browser.
+
+### UI workflow
+![alt text](https://github.com/slonigiraf/recomendation-letter/blob/main/1.png?raw=true)
