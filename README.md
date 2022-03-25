@@ -17,9 +17,9 @@ yarn install
 
 ### Usage
 
-Start a locally running node of [recommendation-letter-example-node](https://github.com/slonigiraf/recommendation-letter-example-node)
+- Start a locally running node of [recommendation-letter-example-node](https://github.com/slonigiraf/recommendation-letter-example-node)
 
-Start the template in development mode:
+- Start the template in development mode:
 
 ```bash
 yarn start
