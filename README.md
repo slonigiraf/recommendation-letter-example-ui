@@ -41,18 +41,19 @@ and open `build/index.html` in your favorite browser.
 - Type a text of recommendation letter, paste a public key of worker and amount of token to stake on the recommendation.
 - Click "Create" button.
 
-<img alt="1 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/1.png?raw=true" width="500" style="border: 1px solid;">
+<table><tbody><tr><td><img alt="1 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/1.png?raw=true" width="500"></tr></td></tbody></table>
 
 - Show the QR code to a worker (or take a photo/screenshot of it to show later, for example if you test this repo from a single computer you will need this QR code on the next step)
 
-<img alt="2 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/2.png?raw=true" width="500" style="border: 1px solid;">
+<img alt="2 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/2.png?raw=true" width="500">
 
 #### As a worker
 
 - Select a worker account from account selector (right top corner). We selected Bob.
 - Tap worker tab and then "Add letter about me button"
 
-<img alt="3 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/3.png?raw=true" width="500">
+| <img alt="3 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/3.png?raw=true" width="500"> |
+---
 
 - Scan the QR-code that referee showed to you
 
