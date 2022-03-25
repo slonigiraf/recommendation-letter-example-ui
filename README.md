@@ -33,9 +33,11 @@ yarn build
 and open `build/index.html` in your favorite browser.
 
 ### UI workflow
+
 - Select a referee account from account selector (right top corner). We selected Alice.
 - Type a text of recommendation letter, past a public key of worker and amount of token to stake on the recommendation.
 - Click "Create" button.
+
 ![1 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/1.png?raw=true)
 
 ![2 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/2.png?raw=true)
