@@ -25,7 +25,7 @@ yarn install
 yarn start
 ```
 
-Or in production mode:
+- Or in production mode:
 
 ```bash
 yarn build
