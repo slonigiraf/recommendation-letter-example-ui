@@ -41,7 +41,7 @@ and open `build/index.html` in your favorite browser.
 - Type a text of recommendation letter, paste a public key of worker and amount of token to stake on the recommendation.
 - Click "Create" button.
 
-<img src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/1.png?raw=true" width="500">
+<img alt="1 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/1.png?raw=true" width="500">
 
 - Show the QR code to a worker (or take a photo/screenshot of it to show later, for example if you test this repo from a single computer you will need this QR code on the next step)
 
@@ -50,32 +50,32 @@ and open `build/index.html` in your favorite browser.
 - Select a worker account from account selector (right top corner). We selected Bob.
 - Tap worker tab and then "Add letter about me button"
 
-![2 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/2.png?raw=true)
+<img alt="2 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/2.png?raw=true" width="500">
 
 - Scan the QR-code that referee showed to you
 
-![4 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/4.png?raw=true)
+<img alt="3 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/4.png?raw=true" width="500">
 
-![5 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/5.png?raw=true)
+<img alt="4 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/5.png?raw=true" width="500">
 
-![6 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/6.png?raw=true)
+<img alt="5 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/6.png?raw=true" width="500">
 
-![7 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/7.png?raw=true)
+<img alt="6 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/7.png?raw=true" width="500">
 
-![8 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/8.png?raw=true)
+<img alt="7 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/8.png?raw=true" width="500">
 
-![9 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/9.png?raw=true)
+<img alt="8 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/9.png?raw=true" width="500">
 
-![10 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/10.png?raw=true)
+<img alt="9 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/10.png?raw=true" width="500">
 
-![11 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/11.png?raw=true)
+<img alt="10 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/11.png?raw=true" width="500">
 
-![12 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/12.png?raw=true)
+<img alt="11 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/12.png?raw=true" width="500">
 
-![13 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/13.png?raw=true)
+<img alt="12 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/13.png?raw=true" width="500">
 
-![14 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/14.png?raw=true)
+<img alt="13 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/14.png?raw=true" width="500">
 
-![15 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/15.png?raw=true)
+<img alt="14 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/15.png?raw=true" width="500">
 
-![16 step](https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/16.png?raw=true)
+<img alt="15 step" src="https://github.com/slonigiraf/recommendation-letter-example-ui/blob/main/ui-examples/16.png?raw=true" width="500">
