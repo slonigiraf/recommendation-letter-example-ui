@@ -23,9 +23,6 @@ export function getPrivateDataToSignByReferee(textHash, letterId, refereeU8, wor
 export function getDataToSignByWorker(letterId, refereeU8, workerU8, amount, refereeSignatureU8, employerU8) {
     return new Uint8Array([...numberToU8ArrayOfLength(letterId, 4), ...refereeU8, ...workerU8, ...numberToU8ArrayOfLength(amount, 16), ...refereeSignatureU8, ...employerU8])
 }
-export function wrapByBytes(data){
-    return new Uint8Array([...stringToU8a("<Bytes>"), ...data, ...stringToU8a("</Bytes>")])
-}
 // Just signs data
 export function sign(signer, data) {
     return signer.sign(data)

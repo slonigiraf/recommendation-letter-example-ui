@@ -5,7 +5,7 @@ import { useSubstrateState } from './substrate-lib'
 import QRCode from 'qrcode.react'
 import { web3FromSource } from '@polkadot/extension-dapp'
 import { sign, getDataToSignByWorker } from './helpers.mjs'
-import { hexToU8a, u8aToHex } from '@polkadot/util'
+import { hexToU8a, u8aToHex, u8aWrapBytes } from '@polkadot/util'
 
 
 export default function Main(props) {
@@ -40,7 +40,7 @@ export default function Main(props) {
     let letterInsurance = getDataToSignByWorker(letterIdValue, hexToU8a(refereeAddress),
       hexToU8a(workerAddress), amountValue, hexToU8a(refereeSignOverReceipt), hexToU8a(employerPublicKeyHex))
 
-    const workerSignOverInsurance = u8aToHex(sign(worker, letterInsurance))
+    const workerSignOverInsurance = u8aToHex(sign(worker, u8aWrapBytes(letterInsurance)))
     //
     const result = [textHash, letterIdValue, refereeAddress,
       workerAddress, amountValue, refereeSignOverPrivateData, refereeSignOverReceipt, workerSignOverInsurance]

@@ -13,9 +13,8 @@ import { Form, Input, TextArea, Grid, Button, Modal } from 'semantic-ui-react'
 import { useSubstrateState } from './substrate-lib'
 import QRCode from 'qrcode.react'
 import { web3FromSource } from '@polkadot/extension-dapp'
-import { sign, getPublicDataToSignByReferee, getPrivateDataToSignByReferee } from './helpers.mjs'
-import { hexToU8a, u8aToHex } from '@polkadot/util'
-import { getIPFSContentID } from './helpers.mjs'
+import { sign, getPublicDataToSignByReferee, getPrivateDataToSignByReferee, getIPFSContentID } from './helpers.mjs'
+import { hexToU8a, u8aToHex, u8aWrapBytes } from '@polkadot/util'
 
 export default function Main(props) {
   const { currentAccount } = useSubstrateState()
@@ -61,12 +60,12 @@ export default function Main(props) {
     result.push(amountValue)
     //
     const privateData = getPrivateDataToSignByReferee(textHash, letterId, refereeU8, workerPublicKeyU8, amountValue)
-    const refereeSignOverPrivateData = u8aToHex(sign(referee, privateData))
+    const refereeSignOverPrivateData = u8aToHex(sign(referee, u8aWrapBytes(privateData)))
     result.push(refereeSignOverPrivateData)
     //
 
     const reciept = getPublicDataToSignByReferee(letterId, refereeU8, workerPublicKeyU8, amountValue)
-    const refereeSignOverReceipt = u8aToHex(sign(referee, reciept))
+    const refereeSignOverReceipt = u8aToHex(sign(referee, u8aWrapBytes(reciept)))
     
     result.push(refereeSignOverReceipt)
     return result.join(",")
