@@ -3,11 +3,11 @@
 import { ApiPromise } from '@polkadot/api'
 import { Keyring } from '@polkadot/keyring'
 import { u8aToHex } from '@polkadot/util'
-import { sign, getPublicDataToSignByReferee, getDataToSignByWorker } from './helpers.mjs'
+import { sign, getPublicDataToSignByReferee, getDataToSignByWorker } from '../helpers.mjs'
 
 async function main() {
   const insurance_id = 0
-  const amount = 0
+  const amount = 1000000000000000
   console.log("insurance_id: ", insurance_id)
   console.log("amount: ", amount)
 
@@ -45,7 +45,7 @@ async function main() {
   console.log("workerSignatureU8: ", workerSignatureU8)
   console.log("workerSignatureHex: ", workerSignatureHex)
   // Create a transaction
-  const reimburse = api.tx.insurances.reimburse(insurance_id,
+  const reimburse = api.tx.letters.reimburse(insurance_id,
     refereeHex,
     workerHex,
     employerHex,
