@@ -80,11 +80,11 @@ export default function Main(props) {
     <Grid.Column width={8}>
       <Form>
         <List divided selection>
-          <List.Item>
+          <List.Item key="id">
             <Label horizontal>Id</Label>
             {textHash}
           </List.Item>
-          <List.Item>
+          <List.Item key="text">
             <Label horizontal>Text</Label>
             {props.text}
           </List.Item>
@@ -102,7 +102,6 @@ export default function Main(props) {
         </Form.Field>
         <Form.Field style={{ textAlign: 'center' }}>
           <Button
-            setStatus={setStatus}
             onClick={() => {
               showQR()
             }}

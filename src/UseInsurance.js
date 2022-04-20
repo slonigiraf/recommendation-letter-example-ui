@@ -85,7 +85,7 @@ export default function Main(props) {
     <div style={{ overflowWrap: 'break-word' }}>{status}</div>
   </Form>
 
-  const usedInfo = <List.Item>
+  const usedInfo = <List.Item key="wasInvalidated">
     <Label horizontal>Was invalidated</Label>
   </List.Item>
 
@@ -93,11 +93,11 @@ export default function Main(props) {
     <Grid.Column width={8}>
       <List divided selection>
         {props.wasUsed && usedInfo}
-        <List.Item>
+        <List.Item key="text">
           <Label horizontal>Text</Label>
           {props.text}
         </List.Item>
-        <List.Item>
+        <List.Item key="worker">
           <Label as='a' tag>{workerHex}</Label>
         </List.Item>
       </List>

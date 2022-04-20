@@ -7,7 +7,7 @@ export default function Main(props) {
   return (
     <List divided relaxed>
     {props.insurances.map((insurance, index) => (
-        <List.Item><List.Content><List.Description as='a'><InsuranceInfo key={index} insurance={insurance} ipfs={props.ipfs} /></List.Description></List.Content></List.Item>
+        <List.Item key={index}><List.Content><List.Description as='a'><InsuranceInfo insurance={insurance} ipfs={props.ipfs} /></List.Description></List.Content></List.Item>
     ))}
     </List>)
 }
