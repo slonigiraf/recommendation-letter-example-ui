@@ -144,7 +144,7 @@ export default function Main(props) {
           >
             <Modal.Header>Scan this from a worker account</Modal.Header>
             <Modal.Content>
-            <QRCode value={letterInfo} size="160" />
+            <QRCode value={letterInfo} size={300} />
             </Modal.Content>
             <Modal.Actions>
               <Button color='black' onClick={() => setModalIsOpen(false)}>

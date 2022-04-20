@@ -70,7 +70,7 @@ export default function Main(props) {
   }
 
   const qrPart = status ? <Form.Field>
-    <QRCode value={letterInfo} size="160" />
+    <QRCode value={letterInfo} size={300} />
   </Form.Field> : ""
 
 
