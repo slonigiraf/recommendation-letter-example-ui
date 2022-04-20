@@ -107,7 +107,6 @@ export default function Main(props) {
       <Form>
         <Form.Field>
           <TextArea
-            fluid
             type="text"
             placeholder="Recommendation letter text"
             value={text}
